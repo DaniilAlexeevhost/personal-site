@@ -25,10 +25,36 @@ export const siteConfig = {
   description:
     "Product, growth, UX и digital исследования от Daniil Alexeev.",
   locale: "ru_RU",
+  ogImage: "/favicon.ico",
 };
 
 export function absoluteUrl(pathname = "/") {
   return new URL(pathname, siteConfig.url).toString();
+}
+
+function createRobots(index: boolean): Metadata["robots"] {
+  if (!index) {
+    return {
+      index: false,
+      follow: false,
+      googleBot: {
+        index: false,
+        follow: false,
+      },
+    };
+  }
+
+  return {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  };
 }
 
 export function createPageMetadata({
@@ -37,22 +63,27 @@ export function createPageMetadata({
   pathname = "/",
   type = "website",
   image,
+  index = true,
+  absoluteTitle = false,
 }: {
   title: string;
   description?: string;
   pathname?: string;
   type?: "website" | "article";
   image?: string;
+  index?: boolean;
+  absoluteTitle?: boolean;
 }): Metadata {
   const url = absoluteUrl(pathname);
-  const ogImage = image ? absoluteUrl(image) : undefined;
+  const ogImage = absoluteUrl(image ?? siteConfig.ogImage);
 
   return {
-    title,
+    title: absoluteTitle ? { absolute: title } : title,
     description,
     alternates: {
       canonical: url,
     },
+    robots: createRobots(index),
     openGraph: {
       title,
       description,
@@ -60,13 +91,13 @@ export function createPageMetadata({
       siteName: siteConfig.name,
       locale: siteConfig.locale,
       type,
-      images: ogImage ? [{ url: ogImage }] : undefined,
+      images: [{ url: ogImage }],
     },
     twitter: {
-      card: ogImage ? "summary_large_image" : "summary",
+      card: "summary_large_image",
       title,
       description,
-      images: ogImage ? [ogImage] : undefined,
+      images: [ogImage],
     },
   };
 }
@@ -76,8 +107,9 @@ export function createContentMetadata(item: ContentItem): Metadata {
     title: item.seo.title,
     description: item.seo.description,
     pathname: item.route,
-    type: item.section === "articles" ? "article" : "website",
+    type: "article",
     image: item.seo.image,
+    index: item.status === "published",
   });
 }
 

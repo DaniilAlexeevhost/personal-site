@@ -1,6 +1,15 @@
 import Link from "next/link";
 import { articles } from "@/data/articles";
 import { formatContentDate } from "@/data/content";
+import { createPageMetadata, siteConfig } from "@/lib/seo";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = createPageMetadata({
+  title: siteConfig.name,
+  description: siteConfig.description,
+  pathname: "/",
+  absoluteTitle: true,
+});
 
 export default function HomePage() {
   const sections = [

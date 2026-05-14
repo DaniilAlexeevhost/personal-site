@@ -1,28 +1,25 @@
 import "./globals.css";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { siteConfig } from "@/lib/seo";
+import { absoluteUrl, createPageMetadata, siteConfig } from "@/lib/seo";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
+  ...createPageMetadata({
+    title: siteConfig.name,
+    description: siteConfig.description,
+    pathname: "/",
+    absoluteTitle: true,
+  }),
   title: {
     default: siteConfig.name,
     template: `%s | ${siteConfig.name}`,
   },
-  description: siteConfig.description,
   alternates: {
-    canonical: "/",
+    canonical: absoluteUrl("/"),
     types: {
-      "application/rss+xml": "/rss.xml",
+      "application/rss+xml": absoluteUrl("/rss.xml"),
     },
-  },
-  openGraph: {
-    title: siteConfig.name,
-    description: siteConfig.description,
-    url: siteConfig.url,
-    siteName: siteConfig.name,
-    locale: siteConfig.locale,
-    type: "website",
   },
 };
 

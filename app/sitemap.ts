@@ -52,12 +52,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: route.priority,
   }));
 
-  const content = getAllContentItems().map((item) => ({
-    url: absoluteUrl(item.route),
-    lastModified: new Date(item.updatedAt ?? item.publishedAt),
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
-  }));
+  const content = Array.from(
+    new Map(
+      getAllContentItems().map((item) => [
+        item.route,
+        {
+          url: absoluteUrl(item.route),
+          lastModified: new Date(item.updatedAt ?? item.publishedAt),
+          changeFrequency: "monthly" as const,
+          priority: 0.7,
+        },
+      ]),
+    ).values(),
+  );
 
   return [...pages, ...content];
 }
