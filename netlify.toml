@@ -6,6 +6,8 @@
   NODE_VERSION = "22"
   NEXT_TELEMETRY_DISABLED = "1"
 
-# Netlify's current Next.js adapter is automatic for Next.js 13.5+.
-# Do not add SPA fallback redirects here; App Router requests must be handled by
-# the Netlify/OpenNext adapter, not rewritten to an index.html file.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# Do not add SPA fallback redirects here. App Router requests must be handled by
+# Netlify's Next.js/OpenNext adapter, not rewritten to an index.html file.
