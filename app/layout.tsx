@@ -97,8 +97,8 @@ export default function RootLayout({
 
         {children}
 
-        <footer className="border-t border-zinc-200 py-10 bg-white">
-          <div className="max-w-6xl mx-auto px-5 sm:px-6 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+        <footer className="border-t border-zinc-200 bg-white py-10 sm:py-12">
+          <div className="max-w-6xl mx-auto px-5 sm:px-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="text-sm text-zinc-500">
               © 2026 Daniil Alexeev
             </div>
