@@ -73,11 +73,11 @@ export function createPageMetadata({
 
 export function createContentMetadata(item: ContentItem): Metadata {
   return createPageMetadata({
-    title: item.seo?.title ?? item.title,
-    description: item.seo?.description ?? item.description,
+    title: item.seo.title,
+    description: item.seo.description,
     pathname: item.route,
     type: item.section === "articles" ? "article" : "website",
-    image: item.seo?.image,
+    image: item.seo.image,
   });
 }
 

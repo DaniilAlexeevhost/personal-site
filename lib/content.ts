@@ -5,12 +5,13 @@ import GrowthHypothesis from "@/content/articles/growth-hypothesis.mdx";
 import ProductRetention from "@/content/articles/product-retention.mdx";
 import { cases } from "@/data/cases";
 import {
-  formatReadingTime,
+  createContentItem,
+  parseContentFrontmatter,
   sortByDate,
 } from "@/data/content";
 import { research } from "@/data/research";
 import { notes } from "@/data/notes";
-import type { Article, ArticleFrontmatter, ContentItem } from "@/data/types";
+import type { Article, ContentItem } from "@/data/types";
 
 const articleModules = [
   {
@@ -37,85 +38,25 @@ function readArticleSource(file: string) {
   );
 }
 
-function parseFrontmatter(source: string): ArticleFrontmatter {
-  const match = source.match(/^---\n([\s\S]*?)\n---/);
-
-  if (!match) {
-    throw new Error("Article MDX file is missing frontmatter.");
-  }
-
-  const rawFields = Object.fromEntries(
-    match[1]
-      .split("\n")
-      .filter(Boolean)
-      .map((line) => {
-        const separatorIndex = line.indexOf(":");
-
-        if (separatorIndex === -1) {
-          throw new Error(`Invalid frontmatter line: ${line}`);
-        }
-
-        return [
-          line.slice(0, separatorIndex).trim(),
-          line.slice(separatorIndex + 1).trim(),
-        ];
-      }),
-  );
-
-  const getString = (key: keyof ArticleFrontmatter) => {
-    const value = rawFields[key];
-
-    if (!value) {
-      throw new Error(`Article frontmatter is missing "${key}".`);
-    }
-
-    return value.replace(/^["']|["']$/g, "");
-  };
-
-  const rawTags = getString("tags");
-  const tags = rawTags
-    .replace(/^\[|\]$/g, "")
-    .split(",")
-    .map((tag) => tag.trim().replace(/^["']|["']$/g, ""))
-    .filter(Boolean);
-
-  return {
-    title: getString("title"),
-    description: getString("description"),
-    date: getString("date"),
-    category: getString("category"),
-    tags,
-    slug: getString("slug"),
-    status: rawFields.status?.replace(/^["']|["']$/g, "") as
-      | ArticleFrontmatter["status"]
-      | undefined,
-    image: rawFields.image?.replace(/^["']|["']$/g, ""),
-  };
-}
-
 export function getAllArticles(): Article[] {
   return sortByDate(
     articleModules.map(({ Component, file }) => {
       const source = readArticleSource(file);
-      const frontmatter = parseFrontmatter(source);
+      const frontmatter = parseContentFrontmatter(source);
 
       return {
-        id: frontmatter.slug,
-        section: "articles",
-        slug: frontmatter.slug,
-        route: `/articles/${frontmatter.slug}`,
-        title: frontmatter.title,
-        description: frontmatter.description,
-        category: frontmatter.category,
-        tags: frontmatter.tags,
-        publishedAt: frontmatter.date,
-        status: frontmatter.status ?? "published",
-        readingTime: formatReadingTime(source),
-        seo: {
-          title: frontmatter.title,
-          description: frontmatter.description,
-          image: frontmatter.image,
-        },
+        ...createContentItem(
+          "articles",
+          {
+            ...frontmatter,
+            seo: {
+              title: frontmatter.title,
+              description: frontmatter.description,
+              image: frontmatter.image,
+            },
+          },
+          source,
+        ),
         Component,
       };
     }),
