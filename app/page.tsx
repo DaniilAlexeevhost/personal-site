@@ -3,22 +3,101 @@ import { articles } from "@/data/articles";
 import { formatContentDate } from "@/data/content";
 
 export default function HomePage() {
+  const sections = [
+    {
+      title: "Статьи",
+      description:
+        "Разборы книг, идей, продуктовых концепций, growth-подходов и собственных наблюдений.",
+      href: "/articles",
+    },
+    {
+      title: "Кейсы",
+      description:
+        "Практический опыт, решения, гипотезы и выводы из реальных проектов и рабочих ситуаций.",
+      href: "/cases",
+    },
+    {
+      title: "Исследования",
+      description:
+        "Идеи продуктов, UX, поведения пользователей, AI, digital-моделей и бизнес-гипотез.",
+      href: "/research",
+    },
+    {
+      title: "Notes",
+      description:
+        "Короткие мысли, инсайты, цитаты и наблюдения в процессе обучения и работы.",
+    },
+  ];
+
   return (
     <main className="min-h-screen bg-white text-zinc-950">
       <section className="max-w-6xl mx-auto px-5 sm:px-6 pt-36 sm:pt-32 md:pt-36 pb-14 sm:pb-20">
         <div className="max-w-3xl">
-          <p className="text-xs sm:text-sm uppercase tracking-[0.18em] sm:tracking-[0.28em] text-zinc-500 mb-4 sm:mb-6">
-            Product thinking · research · essays
-          </p>
-
           <h1 className="font-semibold text-[2.55rem] sm:text-5xl md:text-6xl xl:text-7xl leading-[1.05] tracking-tight mb-6 sm:mb-8">
             Исследую, разбираю и учусь строить хорошие продукты
           </h1>
 
           <p className="text-lg sm:text-xl md:text-2xl leading-8 md:leading-9 text-zinc-600 max-w-2xl">
-            Пишу о продуктах, идеях, исследованиях и цифровых проектах, чтобы
-            превращать стратегию в понятный опыт и продуманные решения.
+            Пишу о продуктах, идеях, исследованиях и цифровых проектах
           </p>
+        </div>
+      </section>
+
+      <section className="border-t border-zinc-200 bg-white">
+        <div className="max-w-6xl mx-auto px-5 sm:px-6 py-14 sm:py-20 lg:py-24">
+          <div className="grid gap-10 lg:grid-cols-[0.8fr_1.4fr] lg:gap-20">
+            <div>
+              <h2 className="text-[2rem] sm:text-4xl md:text-5xl font-semibold leading-tight tracking-tight text-zinc-950">
+                О сайте
+              </h2>
+            </div>
+
+            <div className="max-w-3xl space-y-6 text-lg leading-8 text-zinc-600">
+              <p>
+                Я создаю этот сайт как публичную базу своего пути в product
+                management и цифровых продуктах.
+              </p>
+              <p>
+                Здесь я собираю мысли, исследования, кейсы, гипотезы и заметки
+                по мере того, как учусь, работаю и расту в этой сфере.
+              </p>
+              <p>
+                Это не медиа ради охватов и не блог про “успешный успех”.
+                Скорее — спокойное пространство для размышлений, практики и
+                обмена идеями с людьми, которым действительно интересны
+                продукты, бизнес и цифровые системы.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-zinc-200 bg-white">
+        <div className="max-w-6xl mx-auto px-5 sm:px-6 py-14 sm:py-20 lg:py-24">
+          <div className="grid gap-4 md:grid-cols-2">
+            {sections.map((section) => {
+              const content = (
+                <article className="h-full rounded-2xl sm:rounded-3xl border border-zinc-200/80 bg-white p-5 sm:p-7">
+                  <h2 className="mb-4 text-2xl font-semibold tracking-tight text-zinc-950">
+                    {section.title}
+                  </h2>
+                  <p className="text-base leading-7 text-zinc-600">
+                    {section.description}
+                  </p>
+                </article>
+              );
+
+              if (!section.href) {
+                return <div key={section.title}>{content}</div>;
+              }
+
+              return (
+                <Link key={section.title} href={section.href} className="group">
+                  {content}
+                </Link>
+              );
+            })}
+          </div>
         </div>
       </section>
 
@@ -32,8 +111,8 @@ export default function HomePage() {
               Статьи, заметки и исследования
             </h2>
             <p className="mt-4 text-base sm:text-lg leading-7 sm:leading-8 text-zinc-600">
-              Актуальные рассуждения о growth, UX, AI и продуктовой стратегии в
-              цифровых проектах.
+              Разборы книг, идей, продуктовых концепций, growth-подходов и
+              собственных наблюдений.
             </p>
           </div>
 
