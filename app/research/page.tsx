@@ -8,7 +8,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = createPageMetadata({
   title: "Исследования",
   description:
-    "Исследования о продуктовых идеях, поведении пользователей, AI, UX, бизнес-моделях и гипотезах.",
+    "Исследования, идеи и гипотезы вокруг продуктов, поведения пользователей, AI, UX и цифровых моделей.",
   pathname: "/research",
 });
 
@@ -18,7 +18,7 @@ export default function ResearchPage() {
       <SectionHero
         eyebrow="Research"
         title="Исследования"
-        description="Наблюдения и исследовательские заметки о продуктовых идеях, поведении пользователей, AI, UX, бизнес-моделях и гипотезах."
+        description="Исследования, идеи и гипотезы вокруг продуктов, поведения пользователей, AI, UX и цифровых моделей, которые кажутся интересными для изучения и развития."
       />
 
       <EditorialScope
@@ -33,7 +33,7 @@ export default function ResearchPage() {
       <ContentGrid
         eyebrow="Все исследования"
         title="Идеи, поведение и гипотезы"
-        description="Идеи продуктов, UX, поведения пользователей, AI, digital-моделей и бизнес-гипотез."
+        description="Исследования, идеи и гипотезы вокруг продуктов, поведения пользователей, AI, UX и цифровых моделей, которые кажутся интересными для изучения и развития."
         items={research}
         hrefPrefix="/research"
       />

@@ -8,7 +8,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = createPageMetadata({
   title: "Статьи",
   description:
-    "Статьи о product thinking, книгах, идеях, системах, growth и наблюдениях.",
+    "Мысли, разборы и наблюдения о продуктах, growth, цифровых системах и создании полезных продуктов.",
   pathname: "/articles",
 });
 
@@ -18,7 +18,7 @@ export default function ArticlesPage() {
       <SectionHero
         eyebrow="Articles"
         title="Статьи"
-        description="Пространство для длинных размышлений о product thinking, книгах, идеях, системах, growth и наблюдениях из практики."
+        description="Здесь появляются мысли, разборы и наблюдения о продуктах, growth, цифровых системах и всём, что помогает лучше понимать создание полезных и живых продуктов."
       />
 
       <EditorialScope
@@ -33,7 +33,7 @@ export default function ArticlesPage() {
       <ContentGrid
         eyebrow="Все статьи"
         title="Материалы для спокойного чтения"
-        description="Разборы книг, идей, продуктовых концепций, growth-подходов и собственных наблюдений."
+        description="Здесь появляются мысли, разборы и наблюдения о продуктах, growth, цифровых системах и всём, что помогает лучше понимать создание полезных и живых продуктов."
         items={articles}
         hrefPrefix="/articles"
       />
