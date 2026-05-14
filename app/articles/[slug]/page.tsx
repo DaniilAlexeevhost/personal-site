@@ -51,13 +51,13 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     <main className="min-h-screen bg-white text-zinc-950">
       <div className="relative">
         <div className="border-b border-zinc-200/70 bg-white/95 backdrop-blur-xl sm:sticky sm:top-20 sm:z-20">
-          <div className="max-w-6xl mx-auto px-5 sm:px-6 py-3 sm:py-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.18em] sm:tracking-[0.28em] text-zinc-500">
+          <div className="max-w-6xl mx-auto px-5 sm:px-6 py-3 sm:py-4 flex flex-col gap-2.5 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs uppercase tracking-[0.16em] sm:tracking-[0.24em] text-zinc-500">
               <span>{article.category}</span>
               <span>•</span>
               <span>{article.tags[0]}</span>
             </div>
-            <div className="flex flex-wrap items-center gap-3 text-sm text-zinc-500">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-sm text-zinc-500">
               <span>{article.readingTime} мин чтения</span>
               <span>•</span>
               <Link
@@ -71,15 +71,15 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         </div>
 
         <section className="max-w-6xl mx-auto px-5 sm:px-6 pt-12 sm:pt-20 md:pt-24 pb-20 sm:pb-28">
-          <header className="max-w-3xl">
-            <div className="mb-6 flex flex-wrap items-center gap-3 text-sm text-zinc-500">
-              <span className="rounded-full border border-zinc-200 px-3 py-1">
+          <header className="max-w-[50rem]">
+            <div className="mb-6 flex flex-wrap items-center gap-2.5 text-sm text-zinc-500">
+              <span className="rounded-full border border-zinc-200 px-3 py-1 leading-5">
                 {article.category}
               </span>
               {article.tags.slice(0, 2).map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-full border border-zinc-200 px-3 py-1"
+                  className="rounded-full border border-zinc-200 px-3 py-1 leading-5"
                 >
                   {tag}
                 </span>
@@ -89,22 +89,22 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               </span>
             </div>
 
-            <h1 className="text-[2.35rem] sm:text-5xl md:text-6xl font-semibold tracking-tight leading-[1.08] text-zinc-950 mb-6 sm:mb-8">
+            <h1 className="text-[2.25rem] sm:text-5xl md:text-[3.6rem] font-semibold tracking-tight leading-[1.08] text-zinc-950 mb-6 sm:mb-8">
               {article.title}
             </h1>
 
-            <p className="text-lg sm:text-xl md:text-2xl leading-8 md:leading-9 text-zinc-600 max-w-2xl">
+            <p className="text-lg sm:text-xl md:text-[1.45rem] leading-8 md:leading-9 text-zinc-600 max-w-3xl">
               {article.description}
             </p>
           </header>
 
-          <article className="mx-auto mt-12 sm:mt-16 md:mt-20 max-w-3xl text-zinc-900">
-            <div className="prose prose-zinc prose-base sm:prose-lg max-w-none prose-headings:text-zinc-950 prose-headings:font-semibold prose-headings:tracking-tight prose-p:text-zinc-700 prose-p:leading-8 prose-lead:text-zinc-700 prose-lead:text-xl prose-a:text-zinc-950 prose-a:underline-offset-4 prose-a:decoration-zinc-300 prose-a:transition prose-a:hover:text-zinc-900 prose-a:hover:decoration-zinc-500 prose-img:rounded-2xl sm:prose-img:rounded-3xl prose-img:shadow-lg prose-pre:overflow-x-auto prose-pre:rounded-2xl prose-pre:bg-zinc-950 prose-pre:p-5 prose-code:break-words prose-code:text-sm prose-blockquote:border-l-4 prose-blockquote:border-zinc-200 prose-blockquote:bg-zinc-50 prose-blockquote:px-5 sm:prose-blockquote:px-6 prose-blockquote:py-3 prose-blockquote:text-zinc-700 prose-blockquote:italic prose-li:my-2 prose-strong:text-zinc-950">
+          <article className="mx-auto mt-10 sm:mt-14 md:mt-16 max-w-[50rem] text-zinc-900">
+            <div className="prose prose-zinc prose-lg sm:prose-xl max-w-none prose-headings:text-zinc-950 prose-headings:font-semibold prose-headings:tracking-tight prose-h1:mt-0 prose-h1:mb-8 prose-h1:text-3xl sm:prose-h1:text-4xl prose-h1:leading-tight prose-h2:mt-14 prose-h2:mb-5 prose-h2:text-2xl sm:prose-h2:text-3xl prose-h2:leading-tight prose-h3:mt-10 prose-h3:mb-4 prose-h3:text-xl sm:prose-h3:text-2xl prose-p:my-6 prose-p:text-zinc-700 prose-p:leading-9 prose-lead:text-zinc-700 prose-lead:text-xl prose-a:text-zinc-950 prose-a:underline-offset-4 prose-a:decoration-zinc-300 prose-a:transition prose-a:hover:text-zinc-900 prose-a:hover:decoration-zinc-500 prose-img:rounded-2xl sm:prose-img:rounded-3xl prose-img:shadow-lg prose-pre:my-8 prose-pre:overflow-x-auto prose-pre:rounded-2xl prose-pre:bg-zinc-950 prose-pre:p-5 prose-code:break-words prose-code:text-sm prose-blockquote:my-8 prose-blockquote:border-l-4 prose-blockquote:border-zinc-200 prose-blockquote:bg-zinc-50 prose-blockquote:px-5 sm:prose-blockquote:px-6 prose-blockquote:py-4 prose-blockquote:text-zinc-700 prose-blockquote:italic prose-ul:my-6 prose-ol:my-6 prose-li:my-3 prose-li:pl-1 prose-strong:text-zinc-950">
               <ArticleContent />
             </div>
           </article>
 
-          <nav className="mx-auto mt-14 sm:mt-20 grid max-w-3xl gap-4 sm:grid-cols-2">
+          <nav className="mx-auto mt-14 sm:mt-18 grid max-w-[50rem] gap-4 sm:grid-cols-2">
             {previous ? (
               <Link
                 href={previous.route}
