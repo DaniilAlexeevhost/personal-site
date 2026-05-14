@@ -40,7 +40,7 @@ export default function HomePage() {
 
   return (
     <main className="min-h-screen bg-white text-zinc-950">
-      <section className="max-w-6xl mx-auto px-5 sm:px-6 pt-30 sm:pt-36 md:pt-40 pb-14 sm:pb-24 lg:pb-28">
+      <section className="max-w-6xl mx-auto px-5 sm:px-6 pt-30 sm:pt-36 md:pt-40 pb-14 sm:pb-22 lg:pb-26">
         <div className="max-w-[52rem]">
           <h1 className="font-semibold text-[2.35rem] sm:text-5xl md:text-6xl xl:text-7xl leading-[1.07] sm:leading-[1.06] tracking-tight mb-6 sm:mb-8">
             Исследую, разбираю и учусь строить хорошие продукты
@@ -53,7 +53,7 @@ export default function HomePage() {
       </section>
 
       <section className="border-t border-zinc-200 bg-white">
-        <div className="max-w-6xl mx-auto px-5 sm:px-6 py-12 sm:py-24 lg:py-28">
+        <div className="max-w-6xl mx-auto px-5 sm:px-6 py-12 sm:py-20 lg:py-24">
           <div className="grid gap-7 sm:gap-12 lg:grid-cols-[0.76fr_1.4fr] lg:gap-20">
             <div>
               <h2 className="text-[1.85rem] sm:text-4xl md:text-5xl font-semibold leading-tight tracking-tight text-zinc-950">
@@ -82,11 +82,11 @@ export default function HomePage() {
       </section>
 
       <section className="border-t border-zinc-200 bg-white">
-        <div className="max-w-6xl mx-auto px-5 sm:px-6 py-12 sm:py-24 lg:py-28">
-          <div className="grid gap-4 sm:gap-5 md:grid-cols-2">
+        <div className="max-w-6xl mx-auto px-5 sm:px-6 py-12 sm:py-20 lg:py-24">
+          <div className="grid gap-5 md:grid-cols-2">
             {sections.map((section) => {
               const content = (
-                <article className="h-full rounded-2xl sm:rounded-3xl border border-zinc-200/80 bg-white p-5 sm:p-7 lg:p-8">
+                <article className="h-full rounded-2xl sm:rounded-3xl border border-zinc-200/80 bg-white p-5 sm:p-7 lg:p-8 transition-colors group-hover:border-zinc-300">
                   <h2 className="mb-3.5 sm:mb-4 text-[1.35rem] sm:text-2xl font-semibold leading-tight tracking-tight text-zinc-950">
                     {section.title}
                   </h2>
@@ -111,7 +111,7 @@ export default function HomePage() {
       </section>
 
       <section className="bg-zinc-50">
-        <div className="max-w-6xl mx-auto px-5 sm:px-6 py-12 sm:py-24 lg:py-28">
+        <div className="max-w-6xl mx-auto px-5 sm:px-6 py-12 sm:py-20 lg:py-24">
           <div className="max-w-[46rem] mb-8 sm:mb-14">
             <p className="text-xs sm:text-sm uppercase tracking-[0.16em] sm:tracking-[0.26em] text-zinc-500 mb-3.5 sm:mb-4">
               Последние заметки и статьи
@@ -130,9 +130,9 @@ export default function HomePage() {
               <Link
                 key={article.slug}
                 href={`/articles/${article.slug}`}
-                className="group"
+                className="group outline-none focus-visible:[&>article]:border-zinc-400"
               >
-                <article className="flex h-full flex-col overflow-hidden rounded-2xl sm:rounded-3xl border border-zinc-200/80 bg-white p-5 sm:p-7 lg:p-8 shadow-[0_18px_56px_rgba(15,23,42,0.05)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_32px_96px_rgba(15,23,42,0.12)]">
+                <article className="flex h-full flex-col overflow-hidden rounded-2xl sm:rounded-3xl border border-zinc-200/80 bg-white p-5 sm:p-7 lg:p-8 shadow-[0_14px_48px_rgba(15,23,42,0.04)] transition duration-300 hover:-translate-y-1 hover:border-zinc-300 hover:shadow-[0_24px_72px_rgba(15,23,42,0.08)]">
                   <div className="mb-5 sm:mb-6 flex flex-wrap gap-2 sm:gap-3 text-xs leading-5 sm:text-sm text-zinc-500">
                     <span className="rounded-full border border-zinc-200 px-3 py-1 leading-5">
                       {article.category}

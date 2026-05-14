@@ -19,8 +19,8 @@ export default function AboutPage() {
       />
 
       <section className="border-t border-zinc-200 bg-white">
-        <div className="max-w-6xl mx-auto px-5 sm:px-6 py-14 sm:py-20 lg:py-24">
-          <div className="grid gap-12 lg:grid-cols-[0.72fr_1.4fr] lg:gap-20">
+        <div className="max-w-6xl mx-auto px-5 sm:px-6 py-12 sm:py-20 lg:py-24">
+          <div className="grid gap-10 lg:grid-cols-[0.72fr_1.4fr] lg:gap-20">
             <aside className="text-sm leading-7 text-zinc-500">
               <p className="sticky top-28 max-w-xs">
                 О продуктах, digital-системах, growth, пользовательском
@@ -28,7 +28,7 @@ export default function AboutPage() {
               </p>
             </aside>
 
-            <article className="space-y-8 text-lg leading-8 text-zinc-600">
+            <article className="space-y-6 sm:space-y-8 text-[1.05rem] sm:text-lg leading-8 text-zinc-600">
               <p>
                 Этот сайт - моя публичная база размышлений, исследований и
                 практики вокруг продуктов, digital-систем, growth и

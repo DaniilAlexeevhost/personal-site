@@ -140,7 +140,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
         {relatedArticles.length > 0 && (
           <section className="border-t border-zinc-200 bg-zinc-50">
-            <div className="max-w-6xl mx-auto px-5 sm:px-6 py-12 sm:py-22 lg:py-24">
+            <div className="max-w-6xl mx-auto px-5 sm:px-6 py-12 sm:py-20 lg:py-24">
               <div className="mb-8 sm:mb-12 max-w-3xl">
                 <p className="mb-4 text-xs sm:text-sm uppercase tracking-[0.22em] text-zinc-500">
                   Related reading
@@ -155,9 +155,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                   <Link
                     key={relatedArticle.slug}
                     href={relatedArticle.route}
-                    className="group"
+                    className="group outline-none focus-visible:[&>article]:border-zinc-400"
                   >
-                    <article className="flex h-full flex-col rounded-2xl sm:rounded-3xl border border-zinc-200/80 bg-white p-5 sm:p-6 transition hover:-translate-y-1 hover:shadow-[0_18px_64px_rgba(15,23,42,0.06)]">
+                    <article className="flex h-full flex-col rounded-2xl sm:rounded-3xl border border-zinc-200/80 bg-white p-5 sm:p-6 shadow-[0_14px_48px_rgba(15,23,42,0.04)] transition hover:-translate-y-1 hover:border-zinc-300 hover:shadow-[0_24px_72px_rgba(15,23,42,0.08)]">
                       <div className="mb-5 flex flex-wrap gap-2 text-xs leading-5 text-zinc-500">
                         <span className="rounded-full border border-zinc-200 px-3 py-1">
                           {relatedArticle.category}

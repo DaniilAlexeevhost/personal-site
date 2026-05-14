@@ -10,7 +10,7 @@ export default function SectionHero({
   description,
 }: SectionHeroProps) {
   return (
-    <section className="max-w-6xl mx-auto px-5 sm:px-6 pt-30 sm:pt-32 md:pt-36 pb-12 sm:pb-20">
+    <section className="max-w-6xl mx-auto px-5 sm:px-6 pt-30 sm:pt-32 md:pt-36 pb-12 sm:pb-18 md:pb-20">
       <div className="max-w-3xl">
         <p className="text-xs sm:text-sm uppercase tracking-[0.16em] sm:tracking-[0.28em] text-zinc-500 mb-4 sm:mb-6">
           {eyebrow}

@@ -28,7 +28,7 @@ export default function ContentGrid({
 
   return (
     <section className="bg-zinc-50">
-      <div className="max-w-6xl mx-auto px-5 sm:px-6 py-12 sm:py-20 lg:py-24">
+      <div className="max-w-6xl mx-auto px-5 sm:px-6 py-12 sm:py-18 md:py-20 lg:py-24">
         <div className="max-w-3xl mb-8 sm:mb-12 lg:mb-14">
           <p className="text-xs sm:text-sm uppercase tracking-[0.16em] sm:tracking-[0.26em] text-zinc-500 mb-3">
             {eyebrow}
@@ -41,10 +41,10 @@ export default function ContentGrid({
           </p>
         </div>
 
-        <div className="grid gap-4 sm:gap-6 lg:gap-8 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-5 sm:gap-6 lg:gap-8 md:grid-cols-2 xl:grid-cols-3">
           {sortedItems.map((item) => {
             const card = (
-              <article className="flex h-full flex-col overflow-hidden rounded-2xl sm:rounded-3xl border border-zinc-200/80 bg-white p-5 sm:p-7 lg:p-8 shadow-[0_18px_56px_rgba(15,23,42,0.05)] transition duration-300 group-hover:-translate-y-1 group-hover:shadow-[0_32px_96px_rgba(15,23,42,0.12)]">
+              <article className="flex h-full flex-col overflow-hidden rounded-2xl sm:rounded-3xl border border-zinc-200/80 bg-white p-5 sm:p-7 lg:p-8 shadow-[0_14px_48px_rgba(15,23,42,0.04)] transition duration-300 group-hover:-translate-y-1 group-hover:border-zinc-300 group-hover:shadow-[0_24px_72px_rgba(15,23,42,0.08)]">
                 <div className="mb-5 sm:mb-6 flex flex-wrap gap-2 sm:gap-3 text-xs leading-5 sm:text-sm text-zinc-500">
                   <span className="rounded-full border border-zinc-200 px-3 py-1 leading-5">
                     {item.category}
@@ -95,7 +95,7 @@ export default function ContentGrid({
               <Link
                 key={item.id}
                 href={item.route}
-                className="group"
+                className="group outline-none focus-visible:[&>article]:border-zinc-400"
               >
                 {card}
               </Link>
