@@ -10,6 +10,13 @@ export type ContentSeo = {
   image?: string;
 };
 
+export type ContentTag = {
+  label: string;
+  slug: string;
+  route: string;
+  count: number;
+};
+
 export type ContentMetadataInput = {
   slug: string;
   title: string;

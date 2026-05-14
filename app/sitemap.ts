@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getAllContentItems } from "@/lib/content";
+import { getAllContentItems, getPublishedTags } from "@/lib/content";
 import { absoluteUrl } from "@/lib/seo";
 
 const staticRoutes = [
@@ -66,5 +66,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ).values(),
   );
 
-  return [...pages, ...content];
+  const tags = getPublishedTags().map((tag) => ({
+    url: absoluteUrl(tag.route),
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: 0.4,
+  }));
+
+  return [...pages, ...content, ...tags];
 }

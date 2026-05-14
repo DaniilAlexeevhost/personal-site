@@ -13,6 +13,38 @@ const sectionRoutes: Record<ContentSection, string> = {
   notes: "/notes",
 };
 
+export function createTagSlug(tag: string) {
+  return tag
+    .trim()
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/&/g, " and ")
+    .replace(/[^\p{L}\p{N}]+/gu, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+export function normalizeTag(tag: string) {
+  return tag.trim().replace(/\s+/g, " ");
+}
+
+export function normalizeTags(tags: string[]) {
+  const normalized = new Map<string, string>();
+
+  tags.map(normalizeTag).filter(Boolean).forEach((tag) => {
+    const slug = createTagSlug(tag);
+
+    if (slug) {
+      normalized.set(slug, tag);
+    }
+  });
+
+  return Array.from(normalized.values());
+}
+
+export function createTagRoute(tag: string) {
+  return `/tags/${createTagSlug(tag)}`;
+}
+
 export function formatContentDate(value: string) {
   return new Intl.DateTimeFormat("ru-RU", {
     day: "numeric",
@@ -65,7 +97,7 @@ export function createContentItem<S extends ContentSection>(
     title: input.title,
     description: input.description,
     category: input.category,
-    tags: input.tags,
+    tags: normalizeTags(input.tags),
     publishedAt: input.publishedAt,
     updatedAt: input.updatedAt,
     status: input.status ?? "published",

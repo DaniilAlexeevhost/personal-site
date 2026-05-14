@@ -6,12 +6,14 @@ import ProductRetention from "@/content/articles/product-retention.mdx";
 import { cases } from "@/data/cases";
 import {
   createContentItem,
+  createTagRoute,
+  createTagSlug,
   parseContentFrontmatter,
   sortByDate,
 } from "@/data/content";
 import { research } from "@/data/research";
 import { notes } from "@/data/notes";
-import type { Article, ContentItem } from "@/data/types";
+import type { Article, ContentItem, ContentTag } from "@/data/types";
 
 const articleModules = [
   {
@@ -129,4 +131,38 @@ export function getAllContentItems(): ContentItem[] {
     ...getPublishedResearch(),
     ...getPublishedNotes(),
   ]);
+}
+
+export function getPublishedTags(): ContentTag[] {
+  const tags = new Map<string, ContentTag>();
+
+  getAllContentItems().forEach((item) => {
+    item.tags.forEach((tag) => {
+      const slug = createTagSlug(tag);
+      const current = tags.get(slug);
+
+      tags.set(slug, {
+        label: current?.label ?? tag,
+        slug,
+        route: createTagRoute(tag),
+        count: (current?.count ?? 0) + 1,
+      });
+    });
+  });
+
+  return Array.from(tags.values()).sort((first, second) =>
+    first.label.localeCompare(second.label, "ru"),
+  );
+}
+
+export function getTagBySlug(slug: string) {
+  return getPublishedTags().find((tag) => tag.slug === slug);
+}
+
+export function getPublishedContentByTag(slug: string) {
+  return sortByDate(
+    getAllContentItems().filter((item) =>
+      item.tags.some((tag) => createTagSlug(tag) === slug),
+    ),
+  );
 }
