@@ -24,6 +24,11 @@ const staticRoutes = [
     priority: 0.8,
   },
   {
+    pathname: "/notes",
+    changeFrequency: "weekly",
+    priority: 0.7,
+  },
+  {
     pathname: "/about",
     changeFrequency: "yearly",
     priority: 0.5,

@@ -74,6 +74,13 @@ export default function RootLayout({
                 </Link>
 
                 <Link
+                  href="/notes"
+                  className="hover:text-black transition-colors"
+                >
+                  Заметки
+                </Link>
+
+                <Link
                   href="/about"
                   className="hover:text-black transition-colors"
                 >

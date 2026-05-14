@@ -9,6 +9,7 @@ import {
   sortByDate,
 } from "@/data/content";
 import { research } from "@/data/research";
+import { notes } from "@/data/notes";
 import type { Article, ArticleFrontmatter, ContentItem } from "@/data/types";
 
 const articleModules = [
@@ -176,10 +177,15 @@ export function getResearchBySlug(slug: string) {
   return getPublishedResearch().find((item) => item.slug === slug);
 }
 
+export function getPublishedNotes() {
+  return notes.filter((item) => item.status === "published");
+}
+
 export function getAllContentItems(): ContentItem[] {
   return sortByDate([
     ...getPublishedArticles(),
     ...getPublishedCases(),
     ...getPublishedResearch(),
+    ...getPublishedNotes(),
   ]);
 }

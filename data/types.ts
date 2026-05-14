@@ -1,6 +1,6 @@
 import type { ComponentType } from "react";
 
-export type ContentSection = "articles" | "cases" | "research";
+export type ContentSection = "articles" | "cases" | "research" | "notes";
 
 export type ContentStatus = "published" | "draft";
 
@@ -47,5 +47,10 @@ export type CaseStudy = ContentItem & {
 
 export type ResearchNote = ContentItem & {
   section: "research";
+  content: string;
+};
+
+export type Note = ContentItem & {
+  section: "notes";
   content: string;
 };
