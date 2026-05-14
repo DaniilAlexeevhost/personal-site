@@ -71,9 +71,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           </div>
         </div>
 
-        <section className="max-w-6xl mx-auto px-5 sm:px-6 pt-12 sm:pt-20 md:pt-24 pb-18 sm:pb-24">
+        <section className="max-w-6xl mx-auto px-5 sm:px-6 pt-10 sm:pt-20 md:pt-24 pb-14 sm:pb-24">
           <header className="max-w-[52rem]">
-            <div className="mb-7 flex flex-wrap items-center gap-x-2.5 gap-y-2 text-sm leading-6 text-zinc-500">
+            <div className="mb-6 sm:mb-7 flex flex-wrap items-center gap-x-2.5 gap-y-2 text-sm leading-6 text-zinc-500">
               <span className="rounded-full border border-zinc-200 px-3 py-1 leading-5">
                 {article.category}
               </span>
@@ -94,22 +94,22 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               </span>
             </div>
 
-            <h1 className="text-[2.3rem] sm:text-5xl md:text-[3.55rem] font-semibold tracking-tight leading-[1.08] text-zinc-950 mb-7 sm:mb-8">
+            <h1 className="text-[2.15rem] sm:text-5xl md:text-[3.55rem] font-semibold tracking-tight leading-[1.1] sm:leading-[1.08] text-zinc-950 mb-6 sm:mb-8">
               {article.title}
             </h1>
 
-            <p className="text-lg sm:text-xl md:text-[1.42rem] leading-8 md:leading-9 text-zinc-600 max-w-[46rem]">
+            <p className="text-[1.05rem] sm:text-xl md:text-[1.42rem] leading-8 md:leading-9 text-zinc-600 max-w-[46rem]">
               {article.description}
             </p>
           </header>
 
-          <article className="mx-auto mt-11 sm:mt-14 md:mt-16 max-w-[50rem] text-zinc-900">
+          <article className="mx-auto mt-10 sm:mt-14 md:mt-16 max-w-[50rem] text-zinc-900">
             <EditorialProse>
               <ArticleContent />
             </EditorialProse>
           </article>
 
-          <nav className="mx-auto mt-14 sm:mt-20 grid max-w-[50rem] gap-4 sm:grid-cols-2">
+          <nav className="mx-auto mt-12 sm:mt-20 grid max-w-[50rem] gap-4 sm:grid-cols-2">
             {previous ? (
               <Link
                 href={previous.route}
@@ -140,12 +140,12 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
         {relatedArticles.length > 0 && (
           <section className="border-t border-zinc-200 bg-zinc-50">
-            <div className="max-w-6xl mx-auto px-5 sm:px-6 py-16 sm:py-22 lg:py-24">
-              <div className="mb-10 sm:mb-12 max-w-3xl">
+            <div className="max-w-6xl mx-auto px-5 sm:px-6 py-12 sm:py-22 lg:py-24">
+              <div className="mb-8 sm:mb-12 max-w-3xl">
                 <p className="mb-4 text-xs sm:text-sm uppercase tracking-[0.22em] text-zinc-500">
                   Related reading
                 </p>
-                <h2 className="text-[2rem] sm:text-4xl font-semibold leading-tight tracking-tight text-zinc-950">
+                <h2 className="text-[1.85rem] sm:text-4xl font-semibold leading-tight tracking-tight text-zinc-950">
                   Похожие материалы
                 </h2>
               </div>
@@ -175,7 +175,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                         {relatedArticle.description}
                       </p>
 
-                      <div className="mt-auto flex items-center justify-between text-sm text-zinc-400">
+                      <div className="mt-auto flex flex-wrap items-center justify-between gap-3 text-sm text-zinc-400">
                         <span>
                           {formatContentDate(relatedArticle.publishedAt)}
                         </span>

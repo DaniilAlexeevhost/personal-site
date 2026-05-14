@@ -36,9 +36,9 @@ export default function ContentDetail({
         </div>
       </div>
 
-      <section className="max-w-6xl mx-auto px-5 sm:px-6 pt-12 sm:pt-20 md:pt-24 pb-20 sm:pb-28">
+      <section className="max-w-6xl mx-auto px-5 sm:px-6 pt-10 sm:pt-20 md:pt-24 pb-14 sm:pb-28">
         <header className="max-w-[52rem]">
-          <div className="mb-7 flex flex-wrap items-center gap-x-2.5 gap-y-2 text-sm leading-6 text-zinc-500">
+          <div className="mb-6 sm:mb-7 flex flex-wrap items-center gap-x-2.5 gap-y-2 text-sm leading-6 text-zinc-500">
             <span className="rounded-full border border-zinc-200 px-3 py-1 leading-5">
               {item.category}
             </span>
@@ -59,16 +59,16 @@ export default function ContentDetail({
             </span>
           </div>
 
-          <h1 className="text-[2.3rem] sm:text-5xl md:text-[3.55rem] font-semibold tracking-tight leading-[1.08] text-zinc-950 mb-7 sm:mb-8">
+          <h1 className="text-[2.15rem] sm:text-5xl md:text-[3.55rem] font-semibold tracking-tight leading-[1.1] sm:leading-[1.08] text-zinc-950 mb-6 sm:mb-8">
             {item.title}
           </h1>
 
-          <p className="text-lg sm:text-xl md:text-[1.42rem] leading-8 md:leading-9 text-zinc-600 max-w-[46rem]">
+          <p className="text-[1.05rem] sm:text-xl md:text-[1.42rem] leading-8 md:leading-9 text-zinc-600 max-w-[46rem]">
             {item.description}
           </p>
         </header>
 
-        <article className="mx-auto mt-11 sm:mt-14 md:mt-16 max-w-[50rem] text-zinc-900">
+        <article className="mx-auto mt-10 sm:mt-14 md:mt-16 max-w-[50rem] text-zinc-900">
           <EditorialProse>
             <ReactMarkdown>{item.content}</ReactMarkdown>
           </EditorialProse>
