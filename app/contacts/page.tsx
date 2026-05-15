@@ -24,7 +24,7 @@ export default function ContactsPage() {
           <div className="grid gap-5 sm:gap-6 sm:grid-cols-2">
             <Link
               href="mailto:hello@daniilalexeev.com"
-              className="rounded-2xl sm:rounded-3xl border border-zinc-200 bg-white p-5 sm:p-7 outline-none transition hover:border-zinc-300 hover:shadow-[0_24px_72px_rgba(15,23,42,0.08)] focus-visible:border-zinc-400"
+              className="rounded-2xl sm:rounded-3xl border border-zinc-200/80 bg-white p-5 sm:p-7 shadow-[0_12px_40px_rgba(15,23,42,0.035)] outline-none transition hover:border-zinc-300 hover:shadow-[0_20px_64px_rgba(15,23,42,0.06)] focus-visible:border-zinc-400"
             >
               <p className="mb-3 text-sm leading-6 text-zinc-500">Email</p>
               <p className="text-xl font-semibold leading-snug tracking-tight text-zinc-950">
@@ -34,7 +34,7 @@ export default function ContactsPage() {
 
             <Link
               href="/rss.xml"
-              className="rounded-2xl sm:rounded-3xl border border-zinc-200 bg-white p-5 sm:p-7 outline-none transition hover:border-zinc-300 hover:shadow-[0_24px_72px_rgba(15,23,42,0.08)] focus-visible:border-zinc-400"
+              className="rounded-2xl sm:rounded-3xl border border-zinc-200/80 bg-white p-5 sm:p-7 shadow-[0_12px_40px_rgba(15,23,42,0.035)] outline-none transition hover:border-zinc-300 hover:shadow-[0_20px_64px_rgba(15,23,42,0.06)] focus-visible:border-zinc-400"
             >
               <p className="mb-3 text-sm leading-6 text-zinc-500">RSS</p>
               <p className="text-xl font-semibold leading-snug tracking-tight text-zinc-950">

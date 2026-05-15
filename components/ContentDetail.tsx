@@ -59,11 +59,11 @@ export default function ContentDetail({
             </span>
           </div>
 
-          <h1 className="text-[2.15rem] sm:text-5xl md:text-[3.55rem] font-semibold tracking-tight leading-[1.1] sm:leading-[1.08] text-zinc-950 mb-6 sm:mb-8">
+          <h1 className="text-[2.15rem] sm:text-5xl md:text-[3.45rem] font-semibold tracking-tight leading-[1.1] sm:leading-[1.08] text-zinc-950 mb-6 sm:mb-8">
             {item.title}
           </h1>
 
-          <p className="text-[1.05rem] sm:text-xl md:text-[1.42rem] leading-8 md:leading-9 text-zinc-600 max-w-[46rem]">
+          <p className="text-[1.05rem] sm:text-xl md:text-[1.35rem] leading-8 md:leading-9 text-zinc-600 max-w-[46rem]">
             {item.description}
           </p>
         </header>

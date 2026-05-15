@@ -42,11 +42,11 @@ export default function HomePage() {
     <main className="min-h-screen bg-white text-zinc-950">
       <section className="max-w-6xl mx-auto px-5 sm:px-6 pt-30 sm:pt-36 md:pt-40 pb-14 sm:pb-22 lg:pb-26">
         <div className="max-w-[52rem]">
-          <h1 className="font-semibold text-[2.35rem] sm:text-5xl md:text-6xl xl:text-7xl leading-[1.07] sm:leading-[1.06] tracking-tight mb-6 sm:mb-8">
+          <h1 className="font-semibold text-[2.35rem] sm:text-5xl md:text-[3.65rem] xl:text-[4.35rem] leading-[1.07] sm:leading-[1.05] tracking-tight mb-6 sm:mb-8">
             Исследую, разбираю и учусь строить хорошие продукты
           </h1>
 
-          <p className="text-[1.05rem] sm:text-xl md:text-2xl leading-8 md:leading-9 text-zinc-600 max-w-[42rem]">
+          <p className="text-[1.05rem] sm:text-xl md:text-[1.4rem] leading-8 md:leading-9 text-zinc-600 max-w-[42rem]">
             Пишу о продуктах, идеях, исследованиях и цифровых проектах
           </p>
         </div>
@@ -56,7 +56,7 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto px-5 sm:px-6 py-12 sm:py-20 lg:py-24">
           <div className="grid gap-7 sm:gap-12 lg:grid-cols-[0.76fr_1.4fr] lg:gap-20">
             <div>
-              <h2 className="text-[1.85rem] sm:text-4xl md:text-5xl font-semibold leading-tight tracking-tight text-zinc-950">
+              <h2 className="text-[1.85rem] sm:text-4xl md:text-[2.85rem] font-semibold leading-tight tracking-tight text-zinc-950">
                 О сайте
               </h2>
             </div>
@@ -86,7 +86,7 @@ export default function HomePage() {
           <div className="grid gap-5 md:grid-cols-2">
             {sections.map((section) => {
               const content = (
-                <article className="h-full rounded-2xl sm:rounded-3xl border border-zinc-200/80 bg-white p-5 sm:p-7 lg:p-8 transition-colors group-hover:border-zinc-300">
+                <article className="h-full rounded-2xl sm:rounded-3xl border border-zinc-200/80 bg-white p-5 sm:p-6 lg:p-7 transition-colors group-hover:border-zinc-300">
                   <h2 className="mb-3.5 sm:mb-4 text-[1.35rem] sm:text-2xl font-semibold leading-tight tracking-tight text-zinc-950">
                     {section.title}
                   </h2>
@@ -113,10 +113,10 @@ export default function HomePage() {
       <section className="bg-zinc-50">
         <div className="max-w-6xl mx-auto px-5 sm:px-6 py-12 sm:py-20 lg:py-24">
           <div className="max-w-[46rem] mb-8 sm:mb-14">
-            <p className="text-xs sm:text-sm uppercase tracking-[0.16em] sm:tracking-[0.26em] text-zinc-500 mb-3.5 sm:mb-4">
+            <p className="text-xs sm:text-sm uppercase tracking-[0.16em] sm:tracking-[0.24em] text-zinc-500 mb-3.5 sm:mb-4">
               Последние заметки и статьи
             </p>
-            <h2 className="text-[1.85rem] sm:text-4xl md:text-5xl font-semibold leading-tight tracking-tight text-zinc-950">
+            <h2 className="text-[1.85rem] sm:text-4xl md:text-[2.85rem] font-semibold leading-tight tracking-tight text-zinc-950">
               Статьи, заметки и исследования
             </h2>
             <p className="mt-5 text-base sm:text-lg leading-7 sm:leading-8 text-zinc-600">
@@ -132,22 +132,22 @@ export default function HomePage() {
                 href={`/articles/${article.slug}`}
                 className="group outline-none focus-visible:[&>article]:border-zinc-400"
               >
-                <article className="flex h-full flex-col overflow-hidden rounded-2xl sm:rounded-3xl border border-zinc-200/80 bg-white p-5 sm:p-7 lg:p-8 shadow-[0_14px_48px_rgba(15,23,42,0.04)] transition duration-300 hover:-translate-y-1 hover:border-zinc-300 hover:shadow-[0_24px_72px_rgba(15,23,42,0.08)]">
-                  <div className="mb-5 sm:mb-6 flex flex-wrap gap-2 sm:gap-3 text-xs leading-5 sm:text-sm text-zinc-500">
-                    <span className="rounded-full border border-zinc-200 px-3 py-1 leading-5">
+                <article className="flex h-full flex-col overflow-hidden rounded-2xl sm:rounded-3xl border border-zinc-200/80 bg-white p-5 sm:p-6 lg:p-7 shadow-[0_12px_40px_rgba(15,23,42,0.035)] transition duration-300 hover:border-zinc-300 hover:shadow-[0_20px_64px_rgba(15,23,42,0.06)]">
+                  <div className="mb-5 sm:mb-6 flex flex-wrap gap-2 text-xs leading-5 text-zinc-500">
+                    <span className="rounded-full border border-zinc-200/80 bg-zinc-50/60 px-3 py-1 leading-5">
                       {article.category}
                     </span>
                     {article.tags.slice(0, 1).map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full border border-zinc-200 px-3 py-1 leading-5"
+                        className="rounded-full border border-zinc-200/80 bg-zinc-50/60 px-3 py-1 leading-5"
                       >
                         {tag}
                       </span>
                     ))}
                   </div>
 
-                  <h3 className="text-xl lg:text-2xl font-semibold leading-snug tracking-tight text-zinc-950 mb-4 group-hover:text-zinc-800 transition-colors">
+                  <h3 className="text-xl lg:text-[1.45rem] font-semibold leading-snug tracking-tight text-zinc-950 mb-4 group-hover:text-zinc-800 transition-colors">
                     {article.title}
                   </h3>
 
@@ -155,7 +155,7 @@ export default function HomePage() {
                     {article.description}
                   </p>
 
-                  <div className="mt-auto flex flex-wrap items-center justify-between gap-3 text-sm text-zinc-400">
+                  <div className="mt-auto flex flex-wrap items-center justify-between gap-3 border-t border-zinc-100 pt-5 text-sm leading-6 text-zinc-400">
                     <span>{formatContentDate(article.publishedAt)}</span>
 
                     <span className="text-xl transition-transform group-hover:translate-x-1">

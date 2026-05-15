@@ -29,14 +29,14 @@ export default function ContentGrid({
   return (
     <section className="bg-zinc-50">
       <div className="max-w-6xl mx-auto px-5 sm:px-6 py-12 sm:py-18 md:py-20 lg:py-24">
-        <div className="max-w-3xl mb-8 sm:mb-12 lg:mb-14">
-          <p className="text-xs sm:text-sm uppercase tracking-[0.16em] sm:tracking-[0.26em] text-zinc-500 mb-3">
+        <div className="max-w-[46rem] mb-8 sm:mb-12 lg:mb-14">
+          <p className="text-xs sm:text-sm uppercase tracking-[0.16em] sm:tracking-[0.24em] text-zinc-500 mb-3.5">
             {eyebrow}
           </p>
-          <h2 className="text-[1.85rem] sm:text-4xl md:text-5xl font-semibold leading-tight tracking-tight text-zinc-950">
+          <h2 className="text-[1.85rem] sm:text-4xl md:text-[2.85rem] font-semibold leading-tight tracking-tight text-zinc-950">
             {title}
           </h2>
-          <p className="mt-4 text-base sm:text-lg leading-7 sm:leading-8 text-zinc-600">
+          <p className="mt-5 text-base sm:text-lg leading-7 sm:leading-8 text-zinc-600">
             {description}
           </p>
         </div>
@@ -44,30 +44,30 @@ export default function ContentGrid({
         <div className="grid gap-5 sm:gap-6 lg:gap-8 md:grid-cols-2 xl:grid-cols-3">
           {sortedItems.map((item) => {
             const card = (
-              <article className="flex h-full flex-col overflow-hidden rounded-2xl sm:rounded-3xl border border-zinc-200/80 bg-white p-5 sm:p-7 lg:p-8 shadow-[0_14px_48px_rgba(15,23,42,0.04)] transition duration-300 group-hover:-translate-y-1 group-hover:border-zinc-300 group-hover:shadow-[0_24px_72px_rgba(15,23,42,0.08)]">
-                <div className="mb-5 sm:mb-6 flex flex-wrap gap-2 sm:gap-3 text-xs leading-5 sm:text-sm text-zinc-500">
-                  <span className="rounded-full border border-zinc-200 px-3 py-1 leading-5">
+              <article className="flex h-full flex-col overflow-hidden rounded-2xl sm:rounded-3xl border border-zinc-200/80 bg-white p-5 sm:p-6 lg:p-7 shadow-[0_12px_40px_rgba(15,23,42,0.035)] transition duration-300 group-hover:border-zinc-300 group-hover:shadow-[0_20px_64px_rgba(15,23,42,0.06)]">
+                <div className="mb-5 sm:mb-6 flex flex-wrap gap-2 text-xs leading-5 text-zinc-500">
+                  <span className="rounded-full border border-zinc-200/80 bg-zinc-50/60 px-3 py-1 leading-5">
                     {item.category}
                   </span>
                   {item.tags.slice(0, 2).map((tag) => (
                     <span
                       key={tag}
-                      className="rounded-full border border-zinc-200 px-3 py-1 leading-5"
+                      className="rounded-full border border-zinc-200/80 bg-zinc-50/60 px-3 py-1 leading-5"
                     >
                       {tag}
                     </span>
                   ))}
                 </div>
 
-                <h3 className="text-xl lg:text-2xl font-semibold leading-snug tracking-tight text-zinc-950 mb-4 transition-colors group-hover:text-zinc-800">
+                <h3 className="text-xl lg:text-[1.45rem] font-semibold leading-snug tracking-tight text-zinc-950 mb-4 transition-colors group-hover:text-zinc-800">
                   {item.title}
                 </h3>
 
-                <p className="text-base leading-7 text-zinc-600 mb-8">
+                <p className="text-base leading-7 text-zinc-600 mb-9">
                   {item.description}
                 </p>
 
-                <div className="mt-auto flex flex-wrap items-center justify-between gap-3 text-sm text-zinc-400">
+                <div className="mt-auto flex flex-wrap items-center justify-between gap-3 border-t border-zinc-100 pt-5 text-sm leading-6 text-zinc-400">
                   <span>{formatContentDate(item.publishedAt)}</span>
                   <span className="flex items-center gap-2 text-right">
                     {item.section === "articles" && !compact && (
