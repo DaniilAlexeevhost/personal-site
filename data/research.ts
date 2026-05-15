@@ -1,4 +1,4 @@
-import { createContentItem } from "@/data/content";
+import { createContentCollection } from "@/data/content";
 import type { ResearchNote } from "@/data/types";
 
 const researchEntries = [
@@ -37,7 +37,7 @@ const researchEntries = [
   },
 ];
 
-export const research: ResearchNote[] = researchEntries.map((item) => ({
-  ...createContentItem("research", item, item.content),
-  content: item.content,
-}));
+export const research: ResearchNote[] = createContentCollection(
+  "research",
+  researchEntries,
+);

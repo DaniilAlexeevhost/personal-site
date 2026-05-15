@@ -1,4 +1,4 @@
-import { createContentItem } from "@/data/content";
+import { createContentCollection } from "@/data/content";
 import type { CaseStudy } from "@/data/types";
 
 const caseEntries = [
@@ -36,7 +36,4 @@ const caseEntries = [
   },
 ];
 
-export const cases: CaseStudy[] = caseEntries.map((item) => ({
-  ...createContentItem("cases", item, item.content),
-  content: item.content,
-}));
+export const cases: CaseStudy[] = createContentCollection("cases", caseEntries);

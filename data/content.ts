@@ -1,17 +1,104 @@
 import type {
+  ContentEntryInput,
   ContentFrontmatter,
   ContentItem,
   ContentMetadataInput,
   ContentSection,
+  ContentSectionConfig,
   ContentSeo,
 } from "@/data/types";
 
-const sectionRoutes: Record<ContentSection, string> = {
-  articles: "/articles",
-  cases: "/cases",
-  research: "/research",
-  notes: "/notes",
-};
+export const contentSections = {
+  articles: {
+    label: "Статьи",
+    route: "/articles",
+    feed: true,
+    detailPages: true,
+  },
+  cases: {
+    label: "Кейсы",
+    route: "/cases",
+    feed: false,
+    detailPages: true,
+  },
+  research: {
+    label: "Исследования",
+    route: "/research",
+    feed: false,
+    detailPages: true,
+  },
+  notes: {
+    label: "Заметки",
+    route: "/notes",
+    feed: false,
+    detailPages: false,
+  },
+} satisfies Record<ContentSection, ContentSectionConfig>;
+
+const contentStatuses = ["published", "draft"] as const;
+
+function stripQuotes(value: string) {
+  return value.trim().replace(/^["']|["']$/g, "");
+}
+
+function normalizeDate(value: string) {
+  const date = stripQuotes(value);
+
+  if (Number.isNaN(new Date(date).getTime())) {
+    throw new Error(`Invalid content date: ${value}`);
+  }
+
+  return date;
+}
+
+function normalizeStatus(value?: string) {
+  if (!value) {
+    return undefined;
+  }
+
+  const status = stripQuotes(value);
+
+  if (!contentStatuses.includes(status as (typeof contentStatuses)[number])) {
+    throw new Error(`Invalid content status: ${value}`);
+  }
+
+  return status as (typeof contentStatuses)[number];
+}
+
+function createContentRoute(section: ContentSection, slug: string) {
+  const sectionConfig = contentSections[section];
+
+  return sectionConfig.detailPages
+    ? `${sectionConfig.route}/${slug}`
+    : sectionConfig.route;
+}
+
+function assertUniqueSlugs(section: ContentSection, items: ContentItem[]) {
+  const slugs = new Set<string>();
+
+  items.forEach((item) => {
+    if (slugs.has(item.slug)) {
+      throw new Error(`Duplicate ${section} content slug: ${item.slug}`);
+    }
+
+    slugs.add(item.slug);
+  });
+}
+
+export function isPublished(item: ContentItem) {
+  return item.status === "published";
+}
+
+export function getPublishedItems<T extends ContentItem>(items: T[]) {
+  return sortByDate(items.filter(isPublished));
+}
+
+export function findPublishedBySlug<T extends ContentItem>(
+  items: T[],
+  slug: string,
+) {
+  return getPublishedItems(items).find((item) => item.slug === slug);
+}
 
 export function createTagSlug(tag: string) {
   return tag
@@ -83,27 +170,62 @@ export function createContentItem<S extends ContentSection>(
   input: ContentMetadataInput,
   sourceText = `${input.title} ${input.description}`,
 ): ContentItem & { section: S } {
+  const slug = input.slug.trim();
+
+  if (!slug) {
+    throw new Error(`Content item in ${section} is missing a slug.`);
+  }
+
+  const title = input.title.trim();
+  const description = input.description.trim();
+  const category = input.category.trim();
+  const tags = normalizeTags(input.tags);
+
+  if (!title || !description || !category) {
+    throw new Error(`Content item "${slug}" is missing required metadata.`);
+  }
+
+  if (tags.length === 0) {
+    throw new Error(`Content item "${slug}" must have at least one tag.`);
+  }
+
   const seo = createContentSeo({
-    title: input.seo?.title ?? input.title,
-    description: input.seo?.description ?? input.description,
+    title: input.seo?.title ?? title,
+    description: input.seo?.description ?? description,
     image: input.seo?.image,
   });
 
   return {
-    id: input.slug,
+    id: slug,
     section,
-    slug: input.slug,
-    route: input.route ?? `${sectionRoutes[section]}/${input.slug}`,
-    title: input.title,
-    description: input.description,
-    category: input.category,
-    tags: normalizeTags(input.tags),
-    publishedAt: input.publishedAt,
-    updatedAt: input.updatedAt,
-    status: input.status ?? "published",
+    slug,
+    route: input.route ?? createContentRoute(section, slug),
+    title,
+    description,
+    category,
+    tags,
+    publishedAt: normalizeDate(input.publishedAt),
+    updatedAt: input.updatedAt ? normalizeDate(input.updatedAt) : undefined,
+    status: input.status
+      ? normalizeStatus(input.status) ?? "published"
+      : "published",
     readingTime: input.readingTime ?? formatReadingTime(sourceText),
     seo,
   };
+}
+
+export function createContentCollection<
+  S extends ContentSection,
+  E extends ContentEntryInput,
+>(section: S, entries: E[]) {
+  const items = entries.map((entry) => ({
+    ...createContentItem(section, entry, entry.content),
+    content: entry.content,
+  }));
+
+  assertUniqueSlugs(section, items);
+
+  return sortByDate(items);
 }
 
 export function parseContentFrontmatter(source: string): ContentFrontmatter {
@@ -138,7 +260,7 @@ export function parseContentFrontmatter(source: string): ContentFrontmatter {
       throw new Error(`Content frontmatter is missing "${key}".`);
     }
 
-    return value.replace(/^["']|["']$/g, "");
+    return stripQuotes(value);
   };
 
   const rawDate = rawFields.publishedAt ?? rawFields.date;
@@ -156,20 +278,18 @@ export function parseContentFrontmatter(source: string): ContentFrontmatter {
   const tags = rawTags
     .replace(/^\[|\]$/g, "")
     .split(",")
-    .map((tag) => tag.trim().replace(/^["']|["']$/g, ""))
+    .map((tag) => stripQuotes(tag))
     .filter(Boolean);
 
   return {
     title: getString("title"),
     description: getString("description"),
-    publishedAt: rawDate.replace(/^["']|["']$/g, ""),
+    publishedAt: normalizeDate(rawDate),
     category: getString("category"),
     tags,
     slug: getString("slug"),
-    status: rawFields.status?.replace(/^["']|["']$/g, "") as
-      | ContentFrontmatter["status"]
-      | undefined,
-    image: rawFields.image?.replace(/^["']|["']$/g, ""),
+    status: normalizeStatus(rawFields.status),
+    image: rawFields.image ? stripQuotes(rawFields.image) : undefined,
   };
 }
 

@@ -8,6 +8,8 @@ import {
   createContentItem,
   createTagRoute,
   createTagSlug,
+  findPublishedBySlug,
+  getPublishedItems,
   parseContentFrontmatter,
   sortByDate,
 } from "@/data/content";
@@ -41,38 +43,46 @@ function readArticleSource(file: string) {
 }
 
 export function getAllArticles(): Article[] {
-  return sortByDate(
-    articleModules.map(({ Component, file }) => {
-      const source = readArticleSource(file);
-      const frontmatter = parseContentFrontmatter(source);
+  const articles = articleModules.map(({ Component, file }) => {
+    const source = readArticleSource(file);
+    const frontmatter = parseContentFrontmatter(source);
 
-      return {
-        ...createContentItem(
-          "articles",
-          {
-            ...frontmatter,
-            seo: {
-              title: frontmatter.title,
-              description: frontmatter.description,
-              image: frontmatter.image,
-            },
+    return {
+      ...createContentItem(
+        "articles",
+        {
+          ...frontmatter,
+          seo: {
+            title: frontmatter.title,
+            description: frontmatter.description,
+            image: frontmatter.image,
           },
-          source,
-        ),
-        Component,
-      };
-    }),
-  );
+        },
+        source,
+      ),
+      Component,
+    };
+  });
+
+  const slugs = new Set<string>();
+
+  articles.forEach((article) => {
+    if (slugs.has(article.slug)) {
+      throw new Error(`Duplicate article slug: ${article.slug}`);
+    }
+
+    slugs.add(article.slug);
+  });
+
+  return sortByDate(articles);
 }
 
 export function getPublishedArticles() {
-  return getAllArticles().filter((article) => article.status === "published");
+  return getPublishedItems(getAllArticles());
 }
 
 export function getArticleBySlug(slug: string) {
-  return getAllArticles().find(
-    (article) => article.slug === slug && article.status === "published",
-  );
+  return findPublishedBySlug(getAllArticles(), slug);
 }
 
 export function getRelatedArticles(article: Article, limit = 3) {
@@ -105,23 +115,23 @@ export function getArticleNavigation(article: Article) {
 }
 
 export function getPublishedCases() {
-  return cases.filter((item) => item.status === "published");
+  return getPublishedItems(cases);
 }
 
 export function getCaseBySlug(slug: string) {
-  return getPublishedCases().find((item) => item.slug === slug);
+  return findPublishedBySlug(cases, slug);
 }
 
 export function getPublishedResearch() {
-  return research.filter((item) => item.status === "published");
+  return getPublishedItems(research);
 }
 
 export function getResearchBySlug(slug: string) {
-  return getPublishedResearch().find((item) => item.slug === slug);
+  return findPublishedBySlug(research, slug);
 }
 
 export function getPublishedNotes() {
-  return notes.filter((item) => item.status === "published");
+  return getPublishedItems(notes);
 }
 
 export function getAllContentItems(): ContentItem[] {

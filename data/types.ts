@@ -4,6 +4,13 @@ export type ContentSection = "articles" | "cases" | "research" | "notes";
 
 export type ContentStatus = "published" | "draft";
 
+export type ContentSectionConfig = {
+  label: string;
+  route: string;
+  feed: boolean;
+  detailPages: boolean;
+};
+
 export type ContentSeo = {
   title: string;
   description: string;
@@ -29,6 +36,10 @@ export type ContentMetadataInput = {
   readingTime?: number;
   route?: string;
   seo?: Partial<ContentSeo>;
+};
+
+export type ContentEntryInput = ContentMetadataInput & {
+  content: string;
 };
 
 export type BaseContentItem = {
