@@ -4,7 +4,6 @@ import type { Note } from "@/data/types";
 const noteEntries = [
   {
     slug: "learning-in-public",
-    route: "/notes",
     category: "Learning",
     tags: ["Product", "Reflection"],
     publishedAt: "2026-05-13",
@@ -16,7 +15,6 @@ const noteEntries = [
   },
   {
     slug: "questions-before-solutions",
-    route: "/notes",
     category: "Thinking",
     tags: ["Questions", "Discovery"],
     publishedAt: "2026-05-13",
@@ -28,7 +26,6 @@ const noteEntries = [
   },
   {
     slug: "systems-over-tactics",
-    route: "/notes",
     category: "Systems",
     tags: ["Growth", "Practice"],
     publishedAt: "2026-05-13",

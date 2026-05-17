@@ -31,7 +31,7 @@ export const contentSections = {
     label: "Заметки",
     route: "/notes",
     feed: false,
-    detailPages: false,
+    detailPages: true,
   },
 } satisfies Record<ContentSection, ContentSectionConfig>;
 

@@ -38,6 +38,11 @@ const staticRoutes = [
     changeFrequency: "yearly",
     priority: 0.5,
   },
+  {
+    pathname: "/privacy",
+    changeFrequency: "yearly",
+    priority: 0.3,
+  },
 ] satisfies Array<{
   pathname: string;
   changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];

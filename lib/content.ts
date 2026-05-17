@@ -114,6 +114,69 @@ export function getArticleNavigation(article: Article) {
   };
 }
 
+export function getPublishedLongFormItems(): ContentItem[] {
+  return sortByDate([
+    ...getPublishedArticles(),
+    ...getPublishedCases(),
+    ...getPublishedResearch(),
+  ]);
+}
+
+export function getContentNavigation(item: ContentItem) {
+  const sectionItems = getPublishedLongFormItems().filter(
+    (contentItem) => contentItem.section === item.section,
+  );
+  const index = sectionItems.findIndex(
+    (contentItem) => contentItem.route === item.route,
+  );
+
+  return {
+    previous: index > 0 ? sectionItems[index - 1] : undefined,
+    next:
+      index >= 0 && index < sectionItems.length - 1
+        ? sectionItems[index + 1]
+        : undefined,
+  };
+}
+
+export function getRelatedContentItems(item: ContentItem, limit = 3) {
+  return getPublishedLongFormItems()
+    .filter((contentItem) => contentItem.route !== item.route)
+    .map((contentItem) => ({
+      item: contentItem,
+      score:
+        (contentItem.section === item.section ? 3 : 0) +
+        (contentItem.category === item.category ? 2 : 0) +
+        contentItem.tags.filter((tag) => item.tags.includes(tag)).length,
+    }))
+    .sort(
+      (first, second) =>
+        second.score - first.score ||
+        new Date(second.item.publishedAt).getTime() -
+          new Date(first.item.publishedAt).getTime(),
+    )
+    .slice(0, limit)
+    .map(({ item: contentItem }) => contentItem);
+}
+
+export function getRelatedLongFormForNote(item: ContentItem, limit = 3) {
+  return getPublishedLongFormItems()
+    .map((contentItem) => ({
+      item: contentItem,
+      score:
+        (contentItem.category === item.category ? 2 : 0) +
+        contentItem.tags.filter((tag) => item.tags.includes(tag)).length,
+    }))
+    .sort(
+      (first, second) =>
+        second.score - first.score ||
+        new Date(second.item.publishedAt).getTime() -
+          new Date(first.item.publishedAt).getTime(),
+    )
+    .slice(0, limit)
+    .map(({ item: contentItem }) => contentItem);
+}
+
 export function getPublishedCases() {
   return getPublishedItems(cases);
 }
@@ -134,6 +197,10 @@ export function getPublishedNotes() {
   return getPublishedItems(notes);
 }
 
+export function getNoteBySlug(slug: string) {
+  return findPublishedBySlug(notes, slug);
+}
+
 export function getAllContentItems(): ContentItem[] {
   return sortByDate([
     ...getPublishedArticles(),
@@ -147,8 +214,17 @@ export function getPublishedTags(): ContentTag[] {
   const tags = new Map<string, ContentTag>();
 
   getAllContentItems().forEach((item) => {
-    item.tags.forEach((tag) => {
+    const itemTopics = new Map<string, string>();
+
+    [item.category, ...item.tags].forEach((tag) => {
       const slug = createTagSlug(tag);
+
+      if (slug) {
+        itemTopics.set(slug, tag);
+      }
+    });
+
+    itemTopics.forEach((tag, slug) => {
       const current = tags.get(slug);
 
       tags.set(slug, {
@@ -172,7 +248,7 @@ export function getTagBySlug(slug: string) {
 export function getPublishedContentByTag(slug: string) {
   return sortByDate(
     getAllContentItems().filter((item) =>
-      item.tags.some((tag) => createTagSlug(tag) === slug),
+      [item.category, ...item.tags].some((tag) => createTagSlug(tag) === slug),
     ),
   );
 }

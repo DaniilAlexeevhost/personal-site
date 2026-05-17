@@ -33,62 +33,55 @@ export default function RootLayout({
       <body>
         <header className="fixed top-0 left-0 w-full z-50 border-b border-zinc-200/80 bg-white/95 backdrop-blur-xl">
           <div className="max-w-6xl mx-auto px-5 sm:px-6">
-            <div className="flex min-h-20 flex-col justify-center gap-2.5 py-3 sm:h-20 sm:min-h-0 sm:flex-row sm:items-center sm:gap-7 sm:py-0">
-              <Link
-                href="/"
-                className="shrink-0 text-lg sm:text-xl font-bold tracking-tight leading-6 outline-none transition-colors hover:text-zinc-700 focus-visible:text-zinc-700"
-              >
-                Daniil Alexeev
-              </Link>
-
-              <nav className="-mx-5 flex min-w-0 items-center gap-1 overflow-x-auto whitespace-nowrap px-5 pb-1 text-sm font-medium leading-6 text-zinc-600 [scrollbar-width:none] sm:mx-0 sm:ml-auto sm:gap-7 sm:px-0 sm:pb-0 md:gap-8 [&::-webkit-scrollbar]:hidden">
+            <div className="flex min-h-17 items-center justify-center py-2.5 sm:h-17 sm:min-h-0 sm:py-0">
+              <nav className="-mx-5 flex min-w-0 items-center gap-1.5 overflow-x-auto whitespace-nowrap px-5 pb-1 text-[0.84rem] font-semibold leading-6 text-zinc-700 [scrollbar-width:none] sm:mx-0 sm:justify-center sm:gap-2 sm:px-0 sm:pb-0 md:gap-3 [&::-webkit-scrollbar]:hidden">
                 <Link
                   href="/"
-                  className="rounded-full px-2.5 py-1.5 outline-none transition-colors hover:text-zinc-950 focus-visible:text-zinc-950 sm:rounded-none sm:px-0 sm:py-0"
+                  className="rounded-full px-2.5 py-1.5 outline-none transition hover:bg-zinc-100/80 hover:text-zinc-950 hover:opacity-90 focus-visible:bg-zinc-100/80 focus-visible:text-zinc-950"
                 >
-                  Главная
+                  🏠 Главная
                 </Link>
 
                 <Link
                   href="/articles"
-                  className="rounded-full px-2.5 py-1.5 outline-none transition-colors hover:text-zinc-950 focus-visible:text-zinc-950 sm:rounded-none sm:px-0 sm:py-0"
+                  className="rounded-full px-2.5 py-1.5 outline-none transition hover:bg-zinc-100/80 hover:text-zinc-950 hover:opacity-90 focus-visible:bg-zinc-100/80 focus-visible:text-zinc-950"
                 >
-                  Статьи
+                  📰 Статьи
                 </Link>
 
                 <Link
                   href="/cases"
-                  className="rounded-full px-2.5 py-1.5 outline-none transition-colors hover:text-zinc-950 focus-visible:text-zinc-950 sm:rounded-none sm:px-0 sm:py-0"
+                  className="rounded-full px-2.5 py-1.5 outline-none transition hover:bg-zinc-100/80 hover:text-zinc-950 hover:opacity-90 focus-visible:bg-zinc-100/80 focus-visible:text-zinc-950"
                 >
-                  Кейсы
+                  🛠 Кейсы
                 </Link>
 
                 <Link
                   href="/research"
-                  className="rounded-full px-2.5 py-1.5 outline-none transition-colors hover:text-zinc-950 focus-visible:text-zinc-950 sm:rounded-none sm:px-0 sm:py-0"
+                  className="rounded-full px-2.5 py-1.5 outline-none transition hover:bg-zinc-100/80 hover:text-zinc-950 hover:opacity-90 focus-visible:bg-zinc-100/80 focus-visible:text-zinc-950"
                 >
-                  Исследования
+                  🔎 Исследования
                 </Link>
 
                 <Link
                   href="/notes"
-                  className="rounded-full px-2.5 py-1.5 outline-none transition-colors hover:text-zinc-950 focus-visible:text-zinc-950 sm:rounded-none sm:px-0 sm:py-0"
+                  className="rounded-full px-2.5 py-1.5 outline-none transition hover:bg-zinc-100/80 hover:text-zinc-950 hover:opacity-90 focus-visible:bg-zinc-100/80 focus-visible:text-zinc-950"
                 >
-                  Заметки
+                  📝 Заметки
                 </Link>
 
                 <Link
                   href="/about"
-                  className="rounded-full px-2.5 py-1.5 outline-none transition-colors hover:text-zinc-950 focus-visible:text-zinc-950 sm:rounded-none sm:px-0 sm:py-0"
+                  className="rounded-full px-2.5 py-1.5 outline-none transition hover:bg-zinc-100/80 hover:text-zinc-950 hover:opacity-90 focus-visible:bg-zinc-100/80 focus-visible:text-zinc-950"
                 >
-                  О проекте
+                  👤 О проекте
                 </Link>
 
                 <Link
                   href="/contacts"
-                  className="rounded-full px-2.5 py-1.5 outline-none transition-colors hover:text-zinc-950 focus-visible:text-zinc-950 sm:rounded-none sm:px-0 sm:py-0"
+                  className="rounded-full px-2.5 py-1.5 outline-none transition hover:bg-zinc-100/80 hover:text-zinc-950 hover:opacity-90 focus-visible:bg-zinc-100/80 focus-visible:text-zinc-950"
                 >
-                  Контакты
+                  📬 Контакты
                 </Link>
               </nav>
             </div>
@@ -97,24 +90,28 @@ export default function RootLayout({
 
         {children}
 
-        <footer className="border-t border-zinc-200/80 bg-white py-9 sm:py-12">
-          <div className="max-w-6xl mx-auto px-5 sm:px-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="text-sm leading-6 text-zinc-500">
-              © 2026 Daniil Alexeev
-            </div>
+        <footer className="border-t border-zinc-200/80 bg-white py-5 sm:py-6">
+          <div className="max-w-6xl mx-auto px-5 sm:px-6 flex flex-col gap-4 text-sm font-semibold leading-6 text-zinc-800 sm:flex-row sm:items-center sm:justify-between">
+            <p>© 2026 Daniil Alexeev</p>
 
-            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm leading-6 text-zinc-500 sm:gap-x-6">
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 sm:gap-x-7">
               <Link
-                href="/rss.xml"
-                className="outline-none transition-colors hover:text-zinc-950 focus-visible:text-zinc-950"
+                href="/contacts"
+                className="outline-none transition hover:text-zinc-950 hover:opacity-75 focus-visible:text-zinc-950"
               >
-                RSS
+                📩 Email
               </Link>
               <Link
                 href="/contacts"
-                className="outline-none transition-colors hover:text-zinc-950 focus-visible:text-zinc-950"
+                className="outline-none transition hover:text-zinc-950 hover:opacity-75 focus-visible:text-zinc-950"
               >
-                Email
+                💬 Telegram
+              </Link>
+              <Link
+                href="/privacy"
+                className="outline-none transition hover:text-zinc-950 hover:opacity-75 focus-visible:text-zinc-950"
+              >
+                📄 Политика конфиденциальности
               </Link>
             </div>
           </div>

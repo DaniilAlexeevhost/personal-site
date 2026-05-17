@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { articles } from "@/data/articles";
-import { formatContentDate } from "@/data/content";
+import { createTagRoute, formatContentDate } from "@/data/content";
+import { getAllContentItems } from "@/lib/content";
 import { createPageMetadata, siteConfig } from "@/lib/seo";
 import type { Metadata } from "next";
 
@@ -12,6 +12,7 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 export default function HomePage() {
+  const latestContent = getAllContentItems().slice(0, 6);
   const sections = [
     {
       title: "Статьи",
@@ -34,140 +35,133 @@ export default function HomePage() {
     {
       title: "Заметки",
       description:
-        "Короткие мысли, наблюдения, цитаты и фрагменты идей, которые появляются по мере обучения, работы и повседневных размышлений.",
+        "Короткие мысли, идеи и наблюдения, которые появляются по мере обучения, работы и повседневных размышлений.",
+      href: "/notes",
     },
   ];
 
   return (
-    <main className="min-h-screen bg-white text-zinc-950">
-      <section className="max-w-6xl mx-auto px-5 sm:px-6 pt-30 sm:pt-36 md:pt-40 pb-14 sm:pb-22 lg:pb-26">
-        <div className="max-w-[52rem]">
-          <h1 className="font-semibold text-[2.35rem] sm:text-5xl md:text-[3.65rem] xl:text-[4.35rem] leading-[1.07] sm:leading-[1.05] tracking-tight mb-6 sm:mb-8">
-            Исследую, разбираю и учусь строить хорошие продукты
-          </h1>
+    <main className="min-h-screen bg-white pt-16 text-zinc-950">
+      <div className="mx-auto max-w-6xl">
+        <section className="px-5 pt-2 pb-2 text-center sm:px-6 sm:pt-3 sm:pb-3 lg:pt-4">
+          <div className="mx-auto max-w-[58rem]">
+            <h1 className="font-semibold text-[1.32rem] leading-[1.18] tracking-tight sm:text-[1.55rem] md:whitespace-nowrap md:text-[1.68rem] lg:text-[1.78rem]">
+              Исследую, разбираю и учусь строить хорошие продукты
+            </h1>
 
-          <p className="text-[1.05rem] sm:text-xl md:text-[1.4rem] leading-8 md:leading-9 text-zinc-600 max-w-[42rem]">
-            Пишу о продуктах, идеях, исследованиях и цифровых проектах
-          </p>
-        </div>
-      </section>
-
-      <section className="border-t border-zinc-200 bg-white">
-        <div className="max-w-6xl mx-auto px-5 sm:px-6 py-12 sm:py-20 lg:py-24">
-          <div className="grid gap-7 sm:gap-12 lg:grid-cols-[0.76fr_1.4fr] lg:gap-20">
-            <div>
-              <h2 className="text-[1.85rem] sm:text-4xl md:text-[2.85rem] font-semibold leading-tight tracking-tight text-zinc-950">
-                О сайте
-              </h2>
-            </div>
-
-            <div className="max-w-[46rem] space-y-5 sm:space-y-6 text-[1.05rem] sm:text-lg leading-8 sm:leading-9 text-zinc-600">
-              <p>
-                Я создаю этот сайт как публичную базу своего пути в product
-                management и цифровых продуктах.
-              </p>
-              <p>
-                Здесь я собираю мысли, исследования, кейсы, гипотезы и заметки
-                по мере того, как учусь, работаю и расту в этой сфере.
-              </p>
-              <p>
-                Это не медиа ради охватов и не блог про “успешный успех”.
-                Скорее - спокойное пространство для размышлений, практики и
-                обмена идеями с людьми, которым действительно интересны
-                продукты, бизнес и цифровые системы.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="border-t border-zinc-200 bg-white">
-        <div className="max-w-6xl mx-auto px-5 sm:px-6 py-12 sm:py-20 lg:py-24">
-          <div className="grid gap-5 md:grid-cols-2">
-            {sections.map((section) => {
-              const content = (
-                <article className="h-full rounded-2xl sm:rounded-3xl border border-zinc-200/80 bg-white p-5 sm:p-6 lg:p-7 transition-colors group-hover:border-zinc-300">
-                  <h2 className="mb-3.5 sm:mb-4 text-[1.35rem] sm:text-2xl font-semibold leading-tight tracking-tight text-zinc-950">
-                    {section.title}
-                  </h2>
-                  <p className="max-w-[34rem] text-base leading-7 text-zinc-600">
-                    {section.description}
-                  </p>
-                </article>
-              );
-
-              if (!section.href) {
-                return <div key={section.title}>{content}</div>;
-              }
-
-              return (
-                <Link key={section.title} href={section.href} className="group">
-                  {content}
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-zinc-50">
-        <div className="max-w-6xl mx-auto px-5 sm:px-6 py-12 sm:py-20 lg:py-24">
-          <div className="max-w-[46rem] mb-8 sm:mb-14">
-            <p className="text-xs sm:text-sm uppercase tracking-[0.16em] sm:tracking-[0.24em] text-zinc-500 mb-3.5 sm:mb-4">
-              Последние заметки и статьи
+            <p className="mx-auto mt-1 max-w-[38rem] text-[1.12rem] leading-7 text-zinc-600 sm:text-[1.28rem] sm:leading-8">
+              Пишу о продуктах, идеях, исследованиях и цифровых проектах
             </p>
-            <h2 className="text-[1.85rem] sm:text-4xl md:text-[2.85rem] font-semibold leading-tight tracking-tight text-zinc-950">
-              Статьи, заметки и исследования
+          </div>
+        </section>
+
+        <section className="border-t border-zinc-100 bg-white px-5 py-7 sm:px-6 sm:py-10 lg:py-12">
+          <div className="mb-6 text-center sm:mb-8">
+            <h2 className="text-[1.45rem] font-semibold leading-tight tracking-tight text-zinc-950 sm:text-[1.75rem]">
+              Новые материалы
             </h2>
-            <p className="mt-5 text-base sm:text-lg leading-7 sm:leading-8 text-zinc-600">
-              Разборы книг, идей, продуктовых концепций, growth-подходов и
-              собственных наблюдений.
-            </p>
           </div>
 
-          <div className="grid gap-5 sm:gap-6 lg:gap-8 md:grid-cols-2 xl:grid-cols-3">
-            {articles.map((article) => (
-              <Link
-                key={article.slug}
-                href={`/articles/${article.slug}`}
-                className="group outline-none focus-visible:[&>article]:border-zinc-400"
+          <div className="grid gap-4 sm:gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {latestContent.map((item) => (
+              <article
+                key={`${item.section}-${item.slug}`}
+                className="group relative flex min-h-[15rem] cursor-pointer flex-col overflow-hidden rounded-[2rem] border border-zinc-100 bg-zinc-50/70 p-5 transition duration-300 hover:border-zinc-200 hover:bg-white sm:min-h-[16rem] sm:p-6"
               >
-                <article className="flex h-full flex-col overflow-hidden rounded-2xl sm:rounded-3xl border border-zinc-200/80 bg-white p-5 sm:p-6 lg:p-7 shadow-[0_12px_40px_rgba(15,23,42,0.035)] transition duration-300 hover:border-zinc-300 hover:shadow-[0_20px_64px_rgba(15,23,42,0.06)]">
-                  <div className="mb-5 sm:mb-6 flex flex-wrap gap-2 text-xs leading-5 text-zinc-500">
-                    <span className="rounded-full border border-zinc-200/80 bg-zinc-50/60 px-3 py-1 leading-5">
-                      {article.category}
-                    </span>
-                    {article.tags.slice(0, 1).map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full border border-zinc-200/80 bg-zinc-50/60 px-3 py-1 leading-5"
-                      >
+                <Link
+                  href={item.route}
+                  aria-label={item.title}
+                  className="absolute inset-0 rounded-[2rem] outline-none focus-visible:ring-2 focus-visible:ring-zinc-300"
+                />
+
+                <div className="relative z-10 mb-5 flex flex-wrap gap-2 text-xs leading-5 text-zinc-500 sm:mb-6">
+                  <Link
+                    href={createTagRoute(item.category)}
+                    className="rounded-full border border-zinc-200/70 bg-white/75 px-3 py-1 leading-5 transition hover:border-zinc-300 hover:bg-white hover:text-zinc-950"
+                  >
+                      {item.category}
+                  </Link>
+                  {item.tags.slice(0, 1).map((tag) => (
+                    <Link
+                      key={tag}
+                      href={createTagRoute(tag)}
+                      className="rounded-full border border-zinc-200/70 bg-white/75 px-3 py-1 leading-5 transition hover:border-zinc-300 hover:bg-white hover:text-zinc-950"
+                    >
                         {tag}
-                      </span>
-                    ))}
-                  </div>
+                    </Link>
+                  ))}
+                </div>
 
-                  <h3 className="text-xl lg:text-[1.45rem] font-semibold leading-snug tracking-tight text-zinc-950 mb-4 group-hover:text-zinc-800 transition-colors">
-                    {article.title}
-                  </h3>
+                <h3 className="pointer-events-none relative z-10 mb-3.5 text-[1.35rem] font-semibold leading-snug tracking-tight text-zinc-950 transition-colors group-hover:text-zinc-800 sm:text-[1.45rem]">
+                  {item.title}
+                </h3>
 
-                  <p className="text-base leading-7 text-zinc-600 mb-9">
-                    {article.description}
-                  </p>
+                <p className="pointer-events-none relative z-10 mb-8 text-[0.98rem] leading-7 text-zinc-600">
+                  {item.description}
+                </p>
 
-                  <div className="mt-auto flex flex-wrap items-center justify-between gap-3 border-t border-zinc-100 pt-5 text-sm leading-6 text-zinc-400">
-                    <span>{formatContentDate(article.publishedAt)}</span>
+                <div className="pointer-events-none relative z-10 mt-auto flex flex-wrap items-center justify-between gap-3 pt-5 text-xs leading-5 text-zinc-500">
+                  <span>{formatContentDate(item.publishedAt)}</span>
 
-                    <span className="text-xl transition-transform group-hover:translate-x-1">
-                      →
-                    </span>
-                  </div>
-                </article>
-              </Link>
+                  <span className="text-lg transition-transform group-hover:translate-x-1">
+                    →
+                  </span>
+                </div>
+              </article>
             ))}
           </div>
-        </div>
-      </section>
+
+          <div className="mt-10 flex justify-center sm:mt-13">
+            <Link
+              href="/articles"
+              className="inline-flex items-center rounded-full px-3 py-1.5 text-xl font-semibold leading-8 tracking-tight text-zinc-800 underline decoration-zinc-300 underline-offset-6 transition hover:bg-zinc-50 hover:text-zinc-950 hover:decoration-zinc-600 hover:opacity-90 focus-visible:bg-zinc-50 focus-visible:text-zinc-950 sm:text-2xl"
+            >
+              📰 Смотреть все статьи
+            </Link>
+          </div>
+        </section>
+
+        <section className="border-t border-zinc-100 bg-zinc-50/70 px-5 py-9 sm:px-6 sm:py-12 lg:py-14">
+          <div className="grid gap-7 lg:grid-cols-[1fr_1.15fr] lg:items-start lg:gap-10">
+            <div className="rounded-[2rem] bg-white p-5 sm:p-7">
+              <p className="mb-3 text-sm font-semibold leading-6 text-zinc-500">
+                О сайте
+              </p>
+              <h2 className="text-[1.55rem] font-semibold leading-tight tracking-tight text-zinc-950 sm:text-3xl">
+                Место, где я собираю и делюсь мыслями о цифровых продуктах
+              </h2>
+              <div className="mt-5 space-y-4 text-base leading-8 text-zinc-600">
+                <p>
+                  Я изучаю продакт менеджмент, цифровые продукты и то, как люди
+                  взаимодействуют с интерфейсами, идеями и технологиями.
+                </p>
+                <p>
+                  Здесь я собираю мысли, исследования, кейсы, гипотезы и
+                  заметки по мере того, как учусь, работаю и расту в этой
+                  сфере.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid gap-3 sm:grid-cols-2">
+              {sections.map((section) => (
+                <Link
+                  key={section.title}
+                  href={section.href}
+                  className="group rounded-[1.5rem] border border-zinc-200/70 bg-white p-5 outline-none transition-colors hover:border-zinc-300 focus-visible:border-zinc-400"
+                >
+                  <h3 className="mb-2.5 text-lg font-semibold leading-snug tracking-tight text-zinc-950">
+                    {section.title}
+                  </h3>
+                  <p className="text-sm leading-6 text-zinc-600">
+                    {section.description}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      </div>
     </main>
   );
 }
