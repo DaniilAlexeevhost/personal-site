@@ -71,16 +71,12 @@ export default async function ArticlesPage({
     <main className="min-h-screen bg-white text-zinc-950">
       <section className="max-w-6xl mx-auto px-5 pt-20 pb-4 sm:px-6 sm:pt-22 sm:pb-5">
         <div className="mx-auto max-w-[46rem] text-center">
-          <p className="mb-2.5 text-[0.72rem] font-medium uppercase tracking-[0.18em] text-zinc-500 sm:text-xs">
-            Product thinking · research · essays
-          </p>
-
           <h1 className="mb-2 font-semibold text-[1.35rem] leading-[1.16] tracking-tight sm:text-[1.62rem] md:text-[1.85rem]">
-            Статьи и исследования
+            Статьи
           </h1>
 
           <p className="mx-auto max-w-[38rem] text-[0.95rem] leading-7 text-zinc-600 sm:text-[1rem]">
-            Глубокие размышления о продуктах, growth, UX, AI и цифровых проектах.
+            Мысли, разборы и наблюдения о цифровых продуктах
           </p>
         </div>
 

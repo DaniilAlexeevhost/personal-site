@@ -19,17 +19,13 @@ export default function ContactsPage() {
     <main className="min-h-screen bg-white text-zinc-950">
       <section className="max-w-6xl mx-auto px-5 pt-20 pb-7 sm:px-6 sm:pt-22 sm:pb-8">
         <div className="mx-auto max-w-[46rem] text-center">
-          <p className="mb-2.5 text-[0.72rem] font-medium uppercase tracking-[0.18em] text-zinc-500 sm:text-xs">
-            Contacts
-          </p>
-
           <h1 className="mx-auto max-w-[40rem] text-[1.55rem] font-semibold leading-[1.12] tracking-tight text-zinc-950 sm:text-[1.9rem] md:text-[2.15rem]">
             Контакты
           </h1>
 
-          <p className="mx-auto mt-3 max-w-[34rem] text-[0.95rem] leading-7 text-zinc-600 sm:text-[1rem]">
-            Для продуктовых проектов, исследований, консультаций и аккуратных
-            разговоров о цифровом опыте.
+          <p className="mx-auto mt-3 max-w-[34rem] text-[0.86rem] leading-7 text-zinc-600 sm:text-[0.9rem]">
+            Открыт для общения, совместных проектов и разговоров о цифровых
+            продуктах
           </p>
         </div>
       </section>
@@ -53,9 +49,6 @@ export default function ContactsPage() {
       <section className="border-t border-zinc-200/80 bg-zinc-50">
         <div className="max-w-6xl mx-auto px-5 py-7 sm:px-6 sm:py-9 lg:py-10">
           <div className="mx-auto mb-6 max-w-[38rem] text-center sm:mb-7">
-            <p className="mb-3 text-xs font-medium uppercase tracking-[0.18em] text-zinc-500">
-              Продолжить чтение
-            </p>
             <h2 className="text-[1.45rem] font-semibold leading-tight tracking-tight text-zinc-950 sm:text-[1.8rem]">
               Полезные материалы
             </h2>

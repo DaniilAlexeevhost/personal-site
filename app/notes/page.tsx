@@ -65,16 +65,12 @@ export default async function NotesPage({
     <main className="min-h-screen bg-white text-zinc-950">
       <section className="max-w-6xl mx-auto px-5 pt-20 pb-8 sm:px-6 sm:pt-22 sm:pb-9">
         <div className="mx-auto max-w-[46rem] text-center">
-          <p className="mb-2.5 text-[0.72rem] font-medium uppercase tracking-[0.18em] text-zinc-500 sm:text-xs">
-            Notes · learning · reflections
-          </p>
-
           <h1 className="mb-2 font-semibold text-[1.35rem] leading-[1.16] tracking-tight sm:text-[1.62rem] md:text-[1.85rem]">
             Заметки
           </h1>
 
-          <p className="mx-auto max-w-[38rem] text-[0.95rem] leading-7 text-zinc-600 sm:text-[1rem]">
-            Короткие мысли, вопросы и фрагменты обучения о продуктах и системах.
+          <p className="mx-auto max-w-[38rem] text-[0.9rem] leading-7 text-zinc-600 sm:text-[0.95rem]">
+            Короткие мысли, идеи и наблюдения, которые появляются по мере обучения и работы
           </p>
         </div>
 
