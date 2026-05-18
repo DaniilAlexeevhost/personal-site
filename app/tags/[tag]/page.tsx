@@ -92,10 +92,6 @@ export default async function TagPage({ params, searchParams }: TagPageProps) {
     <main className="min-h-screen bg-white text-zinc-950">
       <section className="mx-auto max-w-6xl px-5 pb-5 pt-16 sm:px-6 sm:pb-6 sm:pt-18">
         <div className="mx-auto max-w-[46rem] text-center">
-          <p className="mb-2.5 text-[0.72rem] font-medium uppercase tracking-[0.18em] text-zinc-500 sm:text-xs">
-            Тема
-          </p>
-
           <h1 className="mb-2 text-[1.45rem] font-semibold leading-[1.16] tracking-tight text-zinc-950 sm:text-[1.75rem] md:text-[1.95rem]">
             {tag.label}
           </h1>
@@ -109,9 +105,6 @@ export default async function TagPage({ params, searchParams }: TagPageProps) {
       <section className="bg-zinc-50">
         <div className="mx-auto max-w-6xl px-5 pb-10 pt-6 sm:px-6 sm:pb-12 sm:pt-8 lg:pb-14 lg:pt-9">
           <div className="mx-auto mb-6 max-w-[44rem] text-center sm:mb-7">
-            <p className="mb-2.5 text-xs font-medium uppercase tracking-[0.18em] text-zinc-500">
-              Материалы по тегу
-            </p>
             <h2 className="text-[1.35rem] font-semibold leading-tight tracking-tight text-zinc-950 sm:text-[1.62rem]">
               Подборка материалов
             </h2>
