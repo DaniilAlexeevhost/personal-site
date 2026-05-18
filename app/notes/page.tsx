@@ -69,7 +69,7 @@ export default async function NotesPage({
             Заметки
           </h1>
 
-          <p className="mx-auto max-w-[38rem] text-[0.9rem] leading-7 text-zinc-600 sm:text-[0.95rem]">
+          <p className="mx-auto max-w-[38rem] text-[0.82rem] leading-7 text-zinc-600 sm:text-[0.86rem]">
             Короткие мысли, идеи и наблюдения, которые появляются по мере обучения и работы
           </p>
         </div>

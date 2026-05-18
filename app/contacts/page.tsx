@@ -23,7 +23,7 @@ export default function ContactsPage() {
             Контакты
           </h1>
 
-          <p className="mx-auto mt-3 max-w-[34rem] text-[0.86rem] leading-7 text-zinc-600 sm:text-[0.9rem]">
+          <p className="mx-auto mt-3 max-w-[34rem] text-[0.72rem] leading-7 text-zinc-600 sm:text-[0.76rem]">
             Открыт для общения, совместных проектов и разговоров о цифровых
             продуктах
           </p>
