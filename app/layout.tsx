@@ -32,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body>
-        <header className="fixed top-0 left-0 w-full z-50 border-b border-zinc-200/80 bg-white/95 backdrop-blur-xl">
+        <header className="fixed top-0 left-0 w-full z-50 border-b border-zinc-200/80 bg-white sm:bg-white/95 sm:backdrop-blur-xl">
           <div className="max-w-6xl mx-auto px-5 sm:px-6">
             <MobileHeader />
 

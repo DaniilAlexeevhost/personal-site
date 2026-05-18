@@ -31,7 +31,7 @@ export default function ContentDetail({
     .slice(0, 3);
 
   return (
-    <main className="min-h-screen bg-white text-zinc-950">
+    <main className="min-h-screen bg-white pt-16 text-zinc-950 sm:pt-0">
       <div className="border-b border-zinc-200/70 bg-white">
         <div className="mx-auto flex max-w-6xl flex-col gap-3 px-5 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <div className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1.5 text-sm leading-6 text-zinc-500">
