@@ -53,13 +53,6 @@ export default function RootLayout({
                 </Link>
 
                 <Link
-                  href="/cases"
-                  className="rounded-full px-2.5 py-1.5 outline-none transition hover:bg-zinc-100/80 hover:text-zinc-950 hover:opacity-90 focus-visible:bg-zinc-100/80 focus-visible:text-zinc-950"
-                >
-                  🛠 Кейсы
-                </Link>
-
-                <Link
                   href="/research"
                   className="rounded-full px-2.5 py-1.5 outline-none transition hover:bg-zinc-100/80 hover:text-zinc-950 hover:opacity-90 focus-visible:bg-zinc-100/80 focus-visible:text-zinc-950"
                 >
@@ -98,12 +91,6 @@ export default function RootLayout({
             <p>© 2026 Daniil Alexeev</p>
 
             <div className="flex flex-col items-start gap-y-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-7">
-              <Link
-                href="/contacts"
-                className="outline-none transition hover:text-zinc-950 hover:opacity-75 focus-visible:text-zinc-950"
-              >
-                📩 Email
-              </Link>
               <Link
                 href="/contacts"
                 className="outline-none transition hover:text-zinc-950 hover:opacity-75 focus-visible:text-zinc-950"

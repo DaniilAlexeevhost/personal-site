@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Pagination from "@/components/Pagination";
-import { createTagRoute, formatContentDate } from "@/data/content";
+import { createTagRoute, formatContentDate, getDisplayTags } from "@/data/content";
 import {
   getPublishedContentByTag,
   getPublishedTags,
@@ -54,7 +54,7 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: TagPageProps): Promise<Metadata> {
-  const { tag: tagSlug } = await params;
+  const tagSlug = decodeURIComponent((await params).tag);
   const tag = getTagBySlug(tagSlug);
 
   if (!tag) {
@@ -69,14 +69,14 @@ export async function generateMetadata({
 
   return createPageMetadata({
     title: tag.label,
-    description: `Материалы по теме ${tag.label}: статьи, кейсы, исследования и заметки.`,
+    description: `Материалы по теме ${tag.label}: статьи, исследования и заметки.`,
     pathname: tag.route,
     type: "website",
   });
 }
 
 export default async function TagPage({ params, searchParams }: TagPageProps) {
-  const { tag: tagSlug } = await params;
+  const tagSlug = decodeURIComponent((await params).tag);
   const tag = getTagBySlug(tagSlug);
 
   if (!tag) {
@@ -97,7 +97,7 @@ export default async function TagPage({ params, searchParams }: TagPageProps) {
           </h1>
 
           <p className="mx-auto max-w-[38rem] text-[0.95rem] leading-7 text-zinc-600 sm:text-[1rem]">
-            Материалы по теме {tag.label}: статьи, кейсы, исследования и заметки.
+            Материалы по теме {tag.label}: статьи, исследования и заметки.
           </p>
         </div>
       </section>
@@ -111,30 +111,33 @@ export default async function TagPage({ params, searchParams }: TagPageProps) {
           </div>
 
           <div className="grid gap-5 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {paginatedItems.map((item) => (
-              <article
-                key={item.route}
-                className="group relative flex h-full cursor-pointer flex-col rounded-[26px] border border-zinc-200/80 bg-white p-5 shadow-[0_12px_40px_rgba(15,23,42,0.035)] transition hover:border-zinc-300 hover:shadow-[0_20px_64px_rgba(15,23,42,0.06)] sm:rounded-[30px] sm:p-6"
-              >
+            {paginatedItems.map((item) => {
+              const displayTags = getDisplayTags(item.category, item.tags, 1);
+
+              return (
+                <article
+                  key={item.route}
+                  className="group relative flex h-full cursor-pointer flex-col rounded-[26px] border border-zinc-200/80 bg-white p-5 shadow-[0_12px_40px_rgba(15,23,42,0.035)] transition hover:border-zinc-300 hover:shadow-[0_20px_64px_rgba(15,23,42,0.06)] sm:rounded-[30px] sm:p-6"
+                >
                 <Link
                   href={item.route}
                   aria-label={item.title}
                   className="absolute inset-0 rounded-[26px] outline-none focus-visible:ring-2 focus-visible:ring-zinc-300 sm:rounded-[30px]"
                 />
 
-                <div className="relative z-10 mb-5 flex flex-wrap gap-2 text-xs leading-5 text-zinc-500">
+                <div className="pointer-events-none relative z-10 mb-5 flex flex-wrap gap-2 text-xs leading-5 text-zinc-500">
                   <Link
                     href={createTagRoute(item.category)}
-                    className="rounded-full border border-zinc-200/80 bg-zinc-50/60 px-3 py-1 transition hover:border-zinc-300 hover:bg-white hover:text-zinc-950"
+                    className="pointer-events-auto rounded-full border border-zinc-200/80 bg-zinc-50/60 px-3 py-1 transition hover:border-zinc-300 hover:bg-white hover:text-zinc-950"
                   >
                     {item.category}
                   </Link>
-                  {item.tags[0] ? (
+                  {displayTags[0] ? (
                     <Link
-                      href={createTagRoute(item.tags[0])}
-                      className="rounded-full border border-zinc-200/80 bg-zinc-50/60 px-3 py-1 transition hover:border-zinc-300 hover:bg-white hover:text-zinc-950"
+                      href={createTagRoute(displayTags[0])}
+                      className="pointer-events-auto rounded-full border border-zinc-200/80 bg-zinc-50/60 px-3 py-1 transition hover:border-zinc-300 hover:bg-white hover:text-zinc-950"
                     >
-                      {item.tags[0]}
+                      {displayTags[0]}
                     </Link>
                   ) : null}
                 </div>
@@ -153,8 +156,9 @@ export default async function TagPage({ params, searchParams }: TagPageProps) {
                     →
                   </span>
                 </div>
-              </article>
-            ))}
+                </article>
+              );
+            })}
           </div>
 
           <Pagination

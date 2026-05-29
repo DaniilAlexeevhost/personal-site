@@ -1,6 +1,7 @@
 import Link from "next/link";
 import {
   formatContentDate,
+  getDisplayTags,
   sortByDate,
 } from "@/data/content";
 import type { ContentItem } from "@/data/types";
@@ -43,13 +44,14 @@ export default function ContentGrid({
 
         <div className="grid gap-5 sm:gap-6 lg:gap-8 md:grid-cols-2 xl:grid-cols-3">
           {sortedItems.map((item) => {
+            const displayTags = getDisplayTags(item.category, item.tags, 2);
             const card = (
               <article className="flex h-full flex-col overflow-hidden rounded-2xl sm:rounded-3xl border border-zinc-200/80 bg-white p-5 sm:p-6 lg:p-7 shadow-[0_12px_40px_rgba(15,23,42,0.035)] transition duration-300 group-hover:border-zinc-300 group-hover:shadow-[0_20px_64px_rgba(15,23,42,0.06)]">
                 <div className="mb-5 sm:mb-6 flex flex-wrap gap-2 text-xs leading-5 text-zinc-500">
                   <span className="rounded-full border border-zinc-200/80 bg-zinc-50/60 px-3 py-1 leading-5">
                     {item.category}
                   </span>
-                  {item.tags.slice(0, 2).map((tag) => (
+                  {displayTags.map((tag) => (
                     <span
                       key={tag}
                       className="rounded-full border border-zinc-200/80 bg-zinc-50/60 px-3 py-1 leading-5"

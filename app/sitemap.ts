@@ -14,11 +14,6 @@ const staticRoutes = [
     priority: 0.9,
   },
   {
-    pathname: "/cases",
-    changeFrequency: "monthly",
-    priority: 0.8,
-  },
-  {
     pathname: "/research",
     changeFrequency: "monthly",
     priority: 0.8,

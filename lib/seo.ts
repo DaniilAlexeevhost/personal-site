@@ -23,7 +23,7 @@ export const siteConfig = {
   name: "Daniil Alexeev",
   url: getSiteUrl(),
   description:
-    "Product, growth, UX и digital исследования от Daniil Alexeev.",
+    "Материалы о продуктах, исследованиях, обучении и пользовательском поведении от Daniil Alexeev.",
   locale: "ru_RU",
   ogImage: "/favicon.ico",
 };

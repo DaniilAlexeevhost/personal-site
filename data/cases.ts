@@ -4,9 +4,10 @@ import type { CaseStudy } from "@/data/types";
 const caseEntries = [
   {
     slug: "retention-growth",
-    category: "Growth",
-    tags: ["Product", "Retention"],
+    category: "Продукт",
+    tags: ["Удержание"],
     publishedAt: "2026-05-13",
+    status: "draft" as const,
     title: "Как retention влияет на рост цифрового продукта",
     description:
       "Исследование продуктовых механик удержания, привычек пользователей и влияния retention на долгосрочный рост продукта.",
@@ -15,9 +16,10 @@ const caseEntries = [
   },
   {
     slug: "growth-hypotheses",
-    category: "Growth",
-    tags: ["Analytics", "Research"],
+    category: "Продукт",
+    tags: ["Исследование"],
     publishedAt: "2026-05-13",
+    status: "draft" as const,
     title: "Почему growth-гипотезы не работают",
     description: "Ошибки в аналитике, исследованиях и понимании аудитории.",
     content:
@@ -25,9 +27,10 @@ const caseEntries = [
   },
   {
     slug: "ux-patterns",
-    category: "UX",
-    tags: ["Retention", "Patterns"],
+    category: "Продукт",
+    tags: ["Удержание", "Поведение"],
     publishedAt: "2026-05-13",
+    status: "draft" as const,
     title: "UX и когнитивные паттерны",
     description:
       "Как хорошие интерфейсы уменьшают трение и улучшают retention.",

@@ -3,7 +3,8 @@ import type { ReactNode } from "react";
 import ReactMarkdown from "react-markdown";
 import EditorialProse from "@/components/EditorialProse";
 import Pagination from "@/components/Pagination";
-import { createTagRoute, formatContentDate } from "@/data/content";
+import { createTagRoute, formatContentDate, getDisplayTags } from "@/data/content";
+import { stripLeadingContentTitle } from "@/lib/content-body";
 import { getContentNavigation, getRelatedContentItems } from "@/lib/content";
 import type { ContentItem } from "@/data/types";
 
@@ -25,6 +26,7 @@ export default function ContentDetail({
   backLabel,
 }: ContentDetailProps) {
   const { previous, next } = getContentNavigation(item);
+  const displayTags = getDisplayTags(item.category, item.tags);
   const navigationRoutes = new Set([previous?.route, next?.route]);
   const relatedItems = getRelatedContentItems(item, 6)
     .filter((relatedItem) => !navigationRoutes.has(relatedItem.route))
@@ -41,14 +43,14 @@ export default function ContentDetail({
             >
               {item.category}
             </Link>
-            {item.tags[0] ? (
+            {displayTags[0] ? (
               <>
                 <span className="text-zinc-300">•</span>
                 <Link
-                  href={createTagRoute(item.tags[0])}
+                  href={createTagRoute(displayTags[0])}
                   className="transition hover:text-zinc-900"
                 >
-                  {item.tags[0]}
+                  {displayTags[0]}
                 </Link>
               </>
             ) : null}
@@ -72,7 +74,7 @@ export default function ContentDetail({
             >
               {item.category}
             </Link>
-            {item.tags.map((tag) => (
+            {displayTags.map((tag) => (
               <Link
                 key={tag}
                 href={createTagRoute(tag)}
@@ -102,10 +104,14 @@ export default function ContentDetail({
           </p>
         </header>
 
-        <article className="mx-auto mt-6 max-w-[38rem] text-zinc-900 sm:mt-7 [&_.prose]:text-[0.91rem] [&_.prose]:leading-[1.68] sm:[&_.prose]:text-[0.94rem] [&_.prose_h2]:mt-5 [&_.prose_h2]:mb-2 [&_.prose_h2]:text-[1.04rem] sm:[&_.prose_h2]:text-[1.16rem] [&_.prose_h3]:mt-4.5 [&_.prose_h3]:mb-1.5 [&_.prose_h3]:text-[0.98rem] sm:[&_.prose_h3]:text-[1.04rem] [&_.prose_p]:my-2 [&_.prose_ul]:my-2 [&_.prose_ol]:my-2 [&_.prose_li]:my-0.5 [&_.prose_blockquote]:my-4 [&_.prose_pre]:my-4">
+        <article className="mx-auto mt-6 max-w-[38rem] text-zinc-900 sm:mt-7 [&_.prose]:text-[0.91rem] [&_.prose]:leading-[1.68] sm:[&_.prose]:text-[0.94rem] [&_.prose_h2]:mt-5 [&_.prose_h2]:mb-2 [&_.prose_h2]:text-[1.04rem] sm:[&_.prose_h2]:text-[1.16rem] [&_.prose_h3]:mt-4.5 [&_.prose_h3]:mb-1.5 [&_.prose_h3]:text-[0.98rem] sm:[&_.prose_h3]:text-[1.04rem] [&_.prose_p]:my-2 [&_.prose_ul]:my-2 [&_.prose_ol]:my-2 [&_.prose_li]:my-0.5 [&_.prose_blockquote]:my-4 [&_.prose_pre]:my-4 [&_.prose>:first-child]:mt-0">
           <EditorialProse>
             {children ??
-              (item.content ? <ReactMarkdown>{item.content}</ReactMarkdown> : null)}
+              (item.content ? (
+                <ReactMarkdown>
+                  {stripLeadingContentTitle(item.content, item.title)}
+                </ReactMarkdown>
+              ) : null)}
           </EditorialProse>
         </article>
       </section>
@@ -187,30 +193,33 @@ function RecommendationSection({
       </div>
 
       <div className="grid gap-5 sm:gap-6 md:grid-cols-3">
-        {items.map((item) => (
-          <article
-            key={item.route}
-            className="group relative flex h-full cursor-pointer flex-col rounded-[26px] border border-zinc-200/80 bg-white p-5 shadow-[0_12px_40px_rgba(15,23,42,0.035)] transition hover:border-zinc-300 hover:shadow-[0_20px_64px_rgba(15,23,42,0.06)] sm:rounded-[30px] sm:p-6"
-          >
+        {items.map((item) => {
+          const displayTags = getDisplayTags(item.category, item.tags, 1);
+
+          return (
+            <article
+              key={item.route}
+              className="group relative flex h-full cursor-pointer flex-col rounded-[26px] border border-zinc-200/80 bg-white p-5 shadow-[0_12px_40px_rgba(15,23,42,0.035)] transition hover:border-zinc-300 hover:shadow-[0_20px_64px_rgba(15,23,42,0.06)] sm:rounded-[30px] sm:p-6"
+            >
             <Link
               href={item.route}
               aria-label={item.title}
               className="absolute inset-0 rounded-[26px] outline-none focus-visible:ring-2 focus-visible:ring-zinc-300 sm:rounded-[30px]"
             />
 
-            <div className="relative z-10 mb-5 flex flex-wrap gap-2 text-xs leading-5 text-zinc-500">
+            <div className="pointer-events-none relative z-10 mb-5 flex flex-wrap gap-2 text-xs leading-5 text-zinc-500">
               <Link
                 href={createTagRoute(item.category)}
-                className="rounded-full border border-zinc-200/80 bg-zinc-50/60 px-3 py-1 transition hover:border-zinc-300 hover:bg-white hover:text-zinc-950"
+                className="pointer-events-auto rounded-full border border-zinc-200/80 bg-zinc-50/60 px-3 py-1 transition hover:border-zinc-300 hover:bg-white hover:text-zinc-950"
               >
                 {item.category}
               </Link>
-              {item.tags[0] ? (
+              {displayTags[0] ? (
                 <Link
-                  href={createTagRoute(item.tags[0])}
-                  className="rounded-full border border-zinc-200/80 bg-zinc-50/60 px-3 py-1 transition hover:border-zinc-300 hover:bg-white hover:text-zinc-950"
+                  href={createTagRoute(displayTags[0])}
+                  className="pointer-events-auto rounded-full border border-zinc-200/80 bg-zinc-50/60 px-3 py-1 transition hover:border-zinc-300 hover:bg-white hover:text-zinc-950"
                 >
-                  {item.tags[0]}
+                  {displayTags[0]}
                 </Link>
               ) : null}
             </div>
@@ -229,8 +238,9 @@ function RecommendationSection({
                 →
               </span>
             </div>
-          </article>
-        ))}
+            </article>
+          );
+        })}
       </div>
 
       <Pagination

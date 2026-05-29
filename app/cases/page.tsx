@@ -1,6 +1,7 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import Pagination from "@/components/Pagination";
-import { createTagRoute, formatContentDate } from "@/data/content";
+import { createTagRoute, formatContentDate, getDisplayTags } from "@/data/content";
 import { getPublishedCases } from "@/lib/content";
 import { createPageMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
@@ -15,12 +16,10 @@ export const metadata: Metadata = createPageMetadata({
 const ARCHIVE_PAGE_SIZE = 12;
 const ARCHIVE_BASE_PATH = "/cases";
 const archiveTags = [
-  "Growth",
-  "Product",
-  "Retention",
-  "UX",
-  "Analytics",
-  "Research",
+  "Продукт",
+  "Исследование",
+  "Удержание",
+  "Поведение",
 ];
 
 function getPaginatedItems<T>(items: T[], currentPage: number, pageSize: number) {
@@ -55,6 +54,8 @@ export default async function CasesPage({
 }: {
   searchParams: ArchiveSearchParams;
 }) {
+  notFound();
+
   const cases = getPublishedCases();
   const totalPages = Math.max(1, Math.ceil(cases.length / ARCHIVE_PAGE_SIZE));
   const currentPage = getArchivePage(await searchParams, totalPages);
@@ -92,30 +93,33 @@ export default async function CasesPage({
       <section className="bg-zinc-50">
         <div className="max-w-6xl mx-auto px-5 pt-6 pb-10 sm:px-6 sm:pt-8 sm:pb-12 lg:pt-9 lg:pb-14">
           <div className="grid gap-5 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {paginatedCases.map((item) => (
-              <article
-                key={item.slug}
-                className="group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-[32px] border border-zinc-200/80 bg-white p-8 shadow-[0_24px_80px_rgba(15,23,42,0.06)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_32px_96px_rgba(15,23,42,0.12)]"
-              >
+            {paginatedCases.map((item) => {
+              const displayTags = getDisplayTags(item.category, item.tags, 1);
+
+              return (
+                <article
+                  key={item.slug}
+                  className="group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-[32px] border border-zinc-200/80 bg-white p-8 shadow-[0_24px_80px_rgba(15,23,42,0.06)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_32px_96px_rgba(15,23,42,0.12)]"
+                >
                 <Link
                   href={item.route}
                   aria-label={item.title}
                   className="absolute inset-0 rounded-[32px] outline-none focus-visible:ring-2 focus-visible:ring-zinc-300"
                 />
 
-                <div className="relative z-10 mb-6 flex flex-wrap gap-3 text-sm text-zinc-500">
+                <div className="pointer-events-none relative z-10 mb-6 flex flex-wrap gap-3 text-sm text-zinc-500">
                   <Link
                     href={createTagRoute(item.category)}
-                    className="rounded-full border border-zinc-200 px-3 py-1 transition hover:border-zinc-300 hover:bg-zinc-50 hover:text-zinc-950"
+                    className="pointer-events-auto rounded-full border border-zinc-200 px-3 py-1 transition hover:border-zinc-300 hover:bg-zinc-50 hover:text-zinc-950"
                   >
                       {item.category}
                   </Link>
-                  {item.tags.length > 0 && (
+                  {displayTags[0] && (
                     <Link
-                      href={createTagRoute(item.tags[0])}
-                      className="rounded-full border border-zinc-200 px-3 py-1 transition hover:border-zinc-300 hover:bg-zinc-50 hover:text-zinc-950"
+                      href={createTagRoute(displayTags[0])}
+                      className="pointer-events-auto rounded-full border border-zinc-200 px-3 py-1 transition hover:border-zinc-300 hover:bg-zinc-50 hover:text-zinc-950"
                     >
-                        {item.tags[0]}
+                        {displayTags[0]}
                     </Link>
                   )}
                 </div>
@@ -137,8 +141,9 @@ export default async function CasesPage({
                     </span>
                   </div>
                 </div>
-              </article>
-            ))}
+                </article>
+              );
+            })}
           </div>
 
           <Pagination

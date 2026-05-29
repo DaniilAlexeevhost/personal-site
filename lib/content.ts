@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import AIProducts from "@/content/articles/ai-products.mdx";
 import GrowthHypothesis from "@/content/articles/growth-hypothesis.mdx";
+import InspiredMartyCagan from "@/content/articles/inspired-marty-cagan.mdx";
 import ProductRetention from "@/content/articles/product-retention.mdx";
 import { cases } from "@/data/cases";
 import {
@@ -29,6 +30,10 @@ const articleModules = [
   {
     file: "ai-products.mdx",
     Component: AIProducts,
+  },
+  {
+    file: "inspired-marty-cagan.mdx",
+    Component: InspiredMartyCagan,
   },
 ] satisfies Array<{
   file: string;

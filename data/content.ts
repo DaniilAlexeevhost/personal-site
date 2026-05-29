@@ -128,6 +128,13 @@ export function normalizeTags(tags: string[]) {
   return Array.from(normalized.values());
 }
 
+export function getDisplayTags(category: string, tags: string[], limit?: number) {
+  const categorySlug = createTagSlug(category);
+  const displayTags = tags.filter((tag) => createTagSlug(tag) !== categorySlug);
+
+  return typeof limit === "number" ? displayTags.slice(0, limit) : displayTags;
+}
+
 export function createTagRoute(tag: string) {
   return `/tags/${createTagSlug(tag)}`;
 }
@@ -140,13 +147,21 @@ export function formatContentDate(value: string) {
   }).format(new Date(value));
 }
 
+const PRODUCT_READING_WORDS_PER_MINUTE = 150;
+const LONG_FORM_READING_BUFFER_WORDS = 300;
+
 export function formatReadingTime(text: string) {
   const normalized = text
     .replace(/^---[\s\S]*?---/m, "")
     .replace(/[<>/#`*_{}[\]()]/g, " ");
-  const words = normalized.trim().split(/\s+/).filter(Boolean).length;
+  const words =
+    normalized.match(/[\p{L}\p{N}]+(?:[-'’][\p{L}\p{N}]+)*/gu)?.length ?? 0;
+  const comprehensionBuffer = words >= LONG_FORM_READING_BUFFER_WORDS ? 1 : 0;
 
-  return Math.max(1, Math.ceil(words / 210));
+  return Math.max(
+    1,
+    Math.ceil(words / PRODUCT_READING_WORDS_PER_MINUTE) + comprehensionBuffer,
+  );
 }
 
 export function createContentSeo({

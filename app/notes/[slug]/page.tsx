@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
-import { createTagRoute, formatContentDate } from "@/data/content";
+import { createTagRoute, formatContentDate, getDisplayTags } from "@/data/content";
+import { stripLeadingContentTitle } from "@/lib/content-body";
 import {
   getNoteBySlug,
   getPublishedNotes,
@@ -44,6 +45,8 @@ export default async function NotePage({ params }: NotePageProps) {
   }
 
   const relatedItems = getRelatedLongFormForNote(item, 3);
+  const displayTags = getDisplayTags(item.category, item.tags, 2);
+  const content = stripLeadingContentTitle(item.content, item.title);
 
   return (
     <main className="min-h-screen bg-white text-zinc-950">
@@ -63,7 +66,7 @@ export default async function NotePage({ params }: NotePageProps) {
             >
               {item.category}
             </Link>
-            {item.tags.slice(0, 2).map((tag) => (
+            {displayTags.map((tag) => (
               <Link
                 key={tag}
                 href={createTagRoute(tag)}
@@ -86,8 +89,8 @@ export default async function NotePage({ params }: NotePageProps) {
           </p>
         </header>
 
-        <article className="mt-9 max-w-[40rem] text-[1.05rem] leading-8 text-zinc-800 [&_p+p]:mt-5">
-          <ReactMarkdown>{item.content}</ReactMarkdown>
+        <article className="mt-6 max-w-[40rem] text-[1.05rem] leading-8 text-zinc-800 sm:mt-7 [&_p+p]:mt-5">
+          <ReactMarkdown>{content}</ReactMarkdown>
         </article>
       </section>
 
@@ -104,30 +107,37 @@ export default async function NotePage({ params }: NotePageProps) {
             </div>
 
             <div className="grid gap-5 sm:gap-6 md:grid-cols-3">
-              {relatedItems.map((relatedItem) => (
-                <article
-                  key={relatedItem.route}
-                  className="group relative flex h-full cursor-pointer flex-col rounded-[26px] border border-zinc-200/80 bg-white p-5 shadow-[0_12px_40px_rgba(15,23,42,0.035)] transition hover:border-zinc-300 hover:shadow-[0_20px_64px_rgba(15,23,42,0.06)] sm:rounded-[30px] sm:p-6"
-                >
+              {relatedItems.map((relatedItem) => {
+                const displayTags = getDisplayTags(
+                  relatedItem.category,
+                  relatedItem.tags,
+                  1,
+                );
+
+                return (
+                  <article
+                    key={relatedItem.route}
+                    className="group relative flex h-full cursor-pointer flex-col rounded-[26px] border border-zinc-200/80 bg-white p-5 shadow-[0_12px_40px_rgba(15,23,42,0.035)] transition hover:border-zinc-300 hover:shadow-[0_20px_64px_rgba(15,23,42,0.06)] sm:rounded-[30px] sm:p-6"
+                  >
                   <Link
                     href={relatedItem.route}
                     aria-label={relatedItem.title}
                     className="absolute inset-0 rounded-[26px] outline-none focus-visible:ring-2 focus-visible:ring-zinc-300 sm:rounded-[30px]"
                   />
 
-                  <div className="relative z-10 mb-5 flex flex-wrap gap-2 text-xs leading-5 text-zinc-500">
+                  <div className="pointer-events-none relative z-10 mb-5 flex flex-wrap gap-2 text-xs leading-5 text-zinc-500">
                     <Link
                       href={createTagRoute(relatedItem.category)}
-                      className="rounded-full border border-zinc-200/80 bg-zinc-50/60 px-3 py-1 transition hover:border-zinc-300 hover:bg-white hover:text-zinc-950"
+                      className="pointer-events-auto rounded-full border border-zinc-200/80 bg-zinc-50/60 px-3 py-1 transition hover:border-zinc-300 hover:bg-white hover:text-zinc-950"
                     >
                       {relatedItem.category}
                     </Link>
-                    {relatedItem.tags[0] ? (
+                    {displayTags[0] ? (
                       <Link
-                        href={createTagRoute(relatedItem.tags[0])}
-                        className="rounded-full border border-zinc-200/80 bg-zinc-50/60 px-3 py-1 transition hover:border-zinc-300 hover:bg-white hover:text-zinc-950"
+                        href={createTagRoute(displayTags[0])}
+                        className="pointer-events-auto rounded-full border border-zinc-200/80 bg-zinc-50/60 px-3 py-1 transition hover:border-zinc-300 hover:bg-white hover:text-zinc-950"
                       >
-                        {relatedItem.tags[0]}
+                        {displayTags[0]}
                       </Link>
                     ) : null}
                   </div>
@@ -146,8 +156,9 @@ export default async function NotePage({ params }: NotePageProps) {
                       →
                     </span>
                   </div>
-                </article>
-              ))}
+                  </article>
+                );
+              })}
             </div>
           </div>
         </section>

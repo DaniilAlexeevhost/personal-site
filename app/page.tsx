@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { createTagRoute, formatContentDate } from "@/data/content";
+import { createTagRoute, formatContentDate, getDisplayTags } from "@/data/content";
 import { getAllContentItems } from "@/lib/content";
 import { createPageMetadata, siteConfig } from "@/lib/seo";
 import type { Metadata } from "next";
@@ -21,15 +21,9 @@ export default function HomePage() {
       href: "/articles",
     },
     {
-      title: "Кейсы",
-      description:
-        "Практические ситуации, решения, гипотезы и выводы из проектов, рабочих процессов и опыта, который постепенно помогает лучше понимать продукты и людей.",
-      href: "/cases",
-    },
-    {
       title: "Исследования",
       description:
-        "Исследования, идеи и гипотезы вокруг продуктов, поведения пользователей, AI и цифровых моделей, которые кажутся интересными для изучения и развития.",
+        "Исследования, идеи и гипотезы вокруг продуктов, поведения пользователей и цифровых моделей, которые кажутся интересными для изучения и развития.",
       href: "/research",
     },
     {
@@ -63,29 +57,32 @@ export default function HomePage() {
           </div>
 
           <div className="grid gap-4 sm:gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {latestContent.map((item) => (
-              <article
-                key={`${item.section}-${item.slug}`}
-                className="group relative flex min-h-[15rem] cursor-pointer flex-col overflow-hidden rounded-[2rem] border border-zinc-100 bg-zinc-50/70 p-5 transition duration-300 hover:border-zinc-200 hover:bg-white sm:min-h-[16rem] sm:p-6"
-              >
+            {latestContent.map((item) => {
+              const displayTags = getDisplayTags(item.category, item.tags, 1);
+
+              return (
+                <article
+                  key={`${item.section}-${item.slug}`}
+                  className="group relative flex min-h-[15rem] cursor-pointer flex-col overflow-hidden rounded-[2rem] border border-zinc-100 bg-zinc-50/70 p-5 transition duration-300 hover:border-zinc-200 hover:bg-white sm:min-h-[16rem] sm:p-6"
+                >
                 <Link
                   href={item.route}
                   aria-label={item.title}
                   className="absolute inset-0 rounded-[2rem] outline-none focus-visible:ring-2 focus-visible:ring-zinc-300"
                 />
 
-                <div className="relative z-10 mb-5 flex flex-wrap gap-2 text-xs leading-5 text-zinc-500 sm:mb-6">
+                <div className="pointer-events-none relative z-10 mb-5 flex flex-wrap gap-2 text-xs leading-5 text-zinc-500 sm:mb-6">
                   <Link
                     href={createTagRoute(item.category)}
-                    className="rounded-full border border-zinc-200/70 bg-white/75 px-3 py-1 leading-5 transition hover:border-zinc-300 hover:bg-white hover:text-zinc-950"
+                    className="pointer-events-auto rounded-full border border-zinc-200/70 bg-white/75 px-3 py-1 leading-5 transition hover:border-zinc-300 hover:bg-white hover:text-zinc-950"
                   >
                       {item.category}
                   </Link>
-                  {item.tags.slice(0, 1).map((tag) => (
+                  {displayTags.map((tag) => (
                     <Link
                       key={tag}
                       href={createTagRoute(tag)}
-                      className="rounded-full border border-zinc-200/70 bg-white/75 px-3 py-1 leading-5 transition hover:border-zinc-300 hover:bg-white hover:text-zinc-950"
+                      className="pointer-events-auto rounded-full border border-zinc-200/70 bg-white/75 px-3 py-1 leading-5 transition hover:border-zinc-300 hover:bg-white hover:text-zinc-950"
                     >
                         {tag}
                     </Link>
@@ -107,8 +104,9 @@ export default function HomePage() {
                     →
                   </span>
                 </div>
-              </article>
-            ))}
+                </article>
+              );
+            })}
           </div>
 
           <div className="mt-10 flex justify-center sm:mt-13">
@@ -136,9 +134,8 @@ export default function HomePage() {
                   взаимодействуют с интерфейсами, идеями и технологиями.
                 </p>
                 <p>
-                  Здесь я собираю мысли, исследования, кейсы, гипотезы и
-                  заметки по мере того, как учусь, работаю и расту в этой
-                  сфере.
+                  Здесь я собираю мысли, исследования, гипотезы и заметки по
+                  мере того, как учусь, работаю и расту в этой сфере.
                 </p>
               </div>
             </div>

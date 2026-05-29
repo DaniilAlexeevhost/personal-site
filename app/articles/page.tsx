@@ -1,29 +1,29 @@
 import Link from "next/link";
 import Pagination from "@/components/Pagination";
 import { getPublishedArticles } from "@/lib/content";
-import { createTagRoute, formatContentDate } from "@/data/content";
+import { createTagRoute, formatContentDate, getDisplayTags } from "@/data/content";
+import { createPageMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
+const pageDescription =
+  "Исследования, мысли и продуктовые заметки о продуктах, потребителях, командах и обучении.";
+
+export const metadata: Metadata = createPageMetadata({
   title: "Статьи | Daniil Alexeev",
-  description: "Исследования, мысли, продуктовые заметки и кейсы о продуктах, growth, UX, AI и цифровых проектах.",
-  openGraph: {
-    title: "Статьи | Daniil Alexeev",
-    description: "Исследования, мысли, продуктовые заметки и кейсы о продуктах, growth, UX, AI и цифровых проектах.",
-    type: "website",
-  },
-};
+  description: pageDescription,
+  pathname: "/articles",
+  absoluteTitle: true,
+});
 
 const ARCHIVE_PAGE_SIZE = 12;
 const ARCHIVE_BASE_PATH = "/articles";
 const archiveTags = [
-  "Product",
-  "Growth",
-  "UX",
-  "Research",
-  "Analytics",
-  "Retention",
-  "Strategy",
+  "Потребитель",
+  "Исследование",
+  "Тестирование",
+  "Цель",
+  "Ценности",
+  "Книги",
 ];
 
 type ArchiveSearchParams = Promise<{
@@ -99,30 +99,33 @@ export default async function ArticlesPage({
       <section className="bg-zinc-50">
         <div className="max-w-6xl mx-auto px-5 pt-6 pb-10 sm:px-6 sm:pt-8 sm:pb-12 lg:pt-9 lg:pb-14">
           <div className="grid gap-5 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {paginatedArticles.map((article) => (
-              <article
-                key={article.slug}
-                className="group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-[32px] border border-zinc-200/80 bg-white p-8 shadow-[0_24px_80px_rgba(15,23,42,0.06)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_32px_96px_rgba(15,23,42,0.12)]"
-              >
+            {paginatedArticles.map((article) => {
+              const displayTags = getDisplayTags(article.category, article.tags, 1);
+
+              return (
+                <article
+                  key={article.slug}
+                  className="group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-[32px] border border-zinc-200/80 bg-white p-8 shadow-[0_24px_80px_rgba(15,23,42,0.06)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_32px_96px_rgba(15,23,42,0.12)]"
+                >
                 <Link
                   href={`/articles/${article.slug}`}
                   aria-label={article.title}
                   className="absolute inset-0 rounded-[32px] outline-none focus-visible:ring-2 focus-visible:ring-zinc-300"
                 />
 
-                <div className="relative z-10 mb-6 flex flex-wrap gap-3 text-sm text-zinc-500">
+                <div className="pointer-events-none relative z-10 mb-6 flex flex-wrap gap-3 text-sm text-zinc-500">
                   <Link
                     href={createTagRoute(article.category)}
-                    className="rounded-full border border-zinc-200 px-3 py-1 transition hover:border-zinc-300 hover:bg-zinc-50 hover:text-zinc-950"
+                    className="pointer-events-auto rounded-full border border-zinc-200 px-3 py-1 transition hover:border-zinc-300 hover:bg-zinc-50 hover:text-zinc-950"
                   >
                       {article.category}
                   </Link>
-                  {article.tags && article.tags.length > 0 && (
+                  {displayTags[0] && (
                     <Link
-                      href={createTagRoute(article.tags[0])}
-                      className="rounded-full border border-zinc-200 px-3 py-1 transition hover:border-zinc-300 hover:bg-zinc-50 hover:text-zinc-950"
+                      href={createTagRoute(displayTags[0])}
+                      className="pointer-events-auto rounded-full border border-zinc-200 px-3 py-1 transition hover:border-zinc-300 hover:bg-zinc-50 hover:text-zinc-950"
                     >
-                        {article.tags[0]}
+                        {displayTags[0]}
                     </Link>
                   )}
                 </div>
@@ -144,8 +147,9 @@ export default async function ArticlesPage({
                     </span>
                   </div>
                 </div>
-              </article>
-            ))}
+                </article>
+              );
+            })}
           </div>
 
           <Pagination

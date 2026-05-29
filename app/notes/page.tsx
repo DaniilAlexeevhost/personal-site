@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Pagination from "@/components/Pagination";
-import { createTagRoute, formatContentDate } from "@/data/content";
+import { createTagRoute, formatContentDate, getDisplayTags } from "@/data/content";
 import { getPublishedNotes } from "@/lib/content";
 import { createPageMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
@@ -15,13 +15,13 @@ export const metadata: Metadata = createPageMetadata({
 const ARCHIVE_PAGE_SIZE = 12;
 const ARCHIVE_BASE_PATH = "/notes";
 const archiveTags = [
-  "Thinking",
-  "Learning",
-  "Product",
-  "Reflection",
-  "Systems",
-  "Questions",
-  "Discovery",
+  "Обучение",
+  "Продукт",
+  "Потребитель",
+  "Исследование",
+  "Тестирование",
+  "Цель",
+  "Ценности",
 ];
 
 function getPaginatedItems<T>(items: T[], currentPage: number, pageSize: number) {
@@ -93,31 +93,34 @@ export default async function NotesPage({
       <section className="bg-zinc-50">
         <div className="max-w-6xl mx-auto px-5 pt-6 pb-10 sm:px-6 sm:pt-8 sm:pb-12 lg:pt-9 lg:pb-14">
           <div className="grid gap-5 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {paginatedNotes.map((item) => (
-              <article
-                key={item.slug}
-                className="group relative flex h-full min-w-0 cursor-pointer flex-col overflow-hidden rounded-[32px] border border-zinc-200/80 bg-white p-7 shadow-[0_24px_80px_rgba(15,23,42,0.06)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_32px_96px_rgba(15,23,42,0.12)] sm:p-8"
-              >
+            {paginatedNotes.map((item) => {
+              const displayTags = getDisplayTags(item.category, item.tags, 1);
+
+              return (
+                <article
+                  key={item.slug}
+                  className="group relative flex h-full min-w-0 cursor-pointer flex-col overflow-hidden rounded-[32px] border border-zinc-200/80 bg-white p-7 shadow-[0_24px_80px_rgba(15,23,42,0.06)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_32px_96px_rgba(15,23,42,0.12)] sm:p-8"
+                >
                 <Link
                   href={item.route}
                   aria-label={item.title}
                   className="absolute inset-0 rounded-[32px] outline-none focus-visible:ring-2 focus-visible:ring-zinc-300"
                 />
 
-                <div className="flex h-full w-full max-w-[88%] min-w-0 flex-col items-start overflow-wrap-anywhere">
+                <div className="pointer-events-none flex h-full w-full max-w-[88%] min-w-0 flex-col items-start overflow-wrap-anywhere">
                   <div className="relative z-10 mb-5 flex min-w-0 flex-wrap gap-2.5 text-xs text-zinc-500">
                     <Link
                       href={createTagRoute(item.category)}
-                      className="max-w-full rounded-full border border-zinc-200 px-3 py-1 transition hover:border-zinc-300 hover:bg-zinc-50 hover:text-zinc-950"
+                      className="pointer-events-auto max-w-full rounded-full border border-zinc-200 px-3 py-1 transition hover:border-zinc-300 hover:bg-zinc-50 hover:text-zinc-950"
                     >
                         {item.category}
                     </Link>
-                    {item.tags.length > 0 && (
+                    {displayTags[0] && (
                       <Link
-                        href={createTagRoute(item.tags[0])}
-                        className="max-w-full rounded-full border border-zinc-200 px-3 py-1 transition hover:border-zinc-300 hover:bg-zinc-50 hover:text-zinc-950"
+                        href={createTagRoute(displayTags[0])}
+                        className="pointer-events-auto max-w-full rounded-full border border-zinc-200 px-3 py-1 transition hover:border-zinc-300 hover:bg-zinc-50 hover:text-zinc-950"
                       >
-                          {item.tags[0]}
+                          {displayTags[0]}
                       </Link>
                     )}
                   </div>
@@ -139,8 +142,9 @@ export default async function NotesPage({
                     </span>
                   </div>
                 </div>
-              </article>
-            ))}
+                </article>
+              );
+            })}
           </div>
 
           <Pagination
