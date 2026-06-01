@@ -1,8 +1,31 @@
 import "./globals.css";
 import Link from "next/link";
+import Script from "next/script";
 import MobileHeader from "@/components/MobileHeader";
 import type { Metadata } from "next";
 import { absoluteUrl, createPageMetadata, siteConfig } from "@/lib/seo";
+
+const YANDEX_METRICA_ID = 109561554;
+
+const yandexMetricaInit = `
+  (function(m,e,t,r,i,k,a){
+    m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {
+      if (document.scripts[j].src === r) {
+        return;
+      }
+    }
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+  })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+  ym(${YANDEX_METRICA_ID}, "init", {
+    clickmap: true,
+    trackLinks: true,
+    accurateTrackBounce: true,
+    webvisor: true
+  });
+`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -32,6 +55,23 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body>
+        <Script
+          id="yandex-metrica"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{ __html: yandexMetricaInit }}
+        />
+
+        <noscript>
+          <div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={`https://mc.yandex.ru/watch/${YANDEX_METRICA_ID}`}
+              style={{ position: "absolute", left: "-9999px" }}
+              alt=""
+            />
+          </div>
+        </noscript>
+
         <header className="fixed top-0 left-0 w-full z-50 border-b border-zinc-200/80 bg-white sm:bg-white/95 sm:backdrop-blur-xl">
           <div className="max-w-6xl mx-auto px-5 sm:px-6">
             <MobileHeader />
