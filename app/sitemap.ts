@@ -44,25 +44,39 @@ const staticRoutes = [
   priority: number;
 }>;
 
+const retiredRoutes = new Set([
+  "/cases",
+  "/cases/growth-hypotheses",
+  "/cases/retention-growth",
+  "/cases/ux-patterns",
+  "/research/ai-product-workflows",
+  "/research/decision-quality",
+  "/research/friction-in-products",
+]);
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const pages = staticRoutes.map((route) => ({
-    url: absoluteUrl(route.pathname),
-    lastModified: new Date(),
-    changeFrequency: route.changeFrequency,
-    priority: route.priority,
-  }));
+  const pages = staticRoutes
+    .filter((route) => !retiredRoutes.has(route.pathname))
+    .map((route) => ({
+      url: absoluteUrl(route.pathname),
+      lastModified: new Date(),
+      changeFrequency: route.changeFrequency,
+      priority: route.priority,
+    }));
 
   const content = Array.from(
     new Map(
-      getAllContentItems().map((item) => [
-        item.route,
-        {
-          url: absoluteUrl(item.route),
-          lastModified: new Date(item.updatedAt ?? item.publishedAt),
-          changeFrequency: "monthly" as const,
-          priority: 0.7,
-        },
-      ]),
+      getAllContentItems()
+        .filter((item) => !retiredRoutes.has(item.route))
+        .map((item) => [
+          item.route,
+          {
+            url: absoluteUrl(item.route),
+            lastModified: new Date(item.updatedAt ?? item.publishedAt),
+            changeFrequency: "monthly" as const,
+            priority: 0.7,
+          },
+        ]),
     ).values(),
   );
 
