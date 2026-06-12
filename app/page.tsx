@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { createTagRoute, formatContentDate, getDisplayTags } from "@/data/content";
 import { getAllContentItems } from "@/lib/content";
-import { createPageMetadata, siteConfig } from "@/lib/seo";
+import { createPageMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = createPageMetadata({
-  title: siteConfig.name,
-  description: siteConfig.description,
+  title: "Daniil Alexeev - статьи о продуктах, исследованиях и росте",
+  description:
+    "Блог Daniil Alexeev о продукт менеджменте, пользовательском поведении, гипотезах, исследованиях и создании полезных цифровых продуктов.",
   pathname: "/",
   absoluteTitle: true,
 });

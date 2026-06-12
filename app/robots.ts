@@ -8,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
     },
     sitemap: absoluteUrl("/sitemap.xml"),
-    host: siteConfig.url,
+    host: new URL(siteConfig.url).host,
   };
 }

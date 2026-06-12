@@ -7,6 +7,17 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: "/:path*",
+        has: [
+          {
+            type: "host",
+            value: "www.daniilalexeev.com",
+          },
+        ],
+        destination: "https://daniilalexeev.com/:path*",
+        permanent: true,
+      },
+      {
         source: "/research/ai-product-workflows",
         destination: "/research",
         permanent: true,
