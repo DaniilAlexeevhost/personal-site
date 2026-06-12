@@ -68,7 +68,7 @@ export async function generateMetadata({
   }
 
   return createPageMetadata({
-    title: tag.label,
+    title: `${tag.label} — тег`,
     description: `Материалы по теме ${tag.label}: статьи, исследования и заметки.`,
     pathname: tag.route,
     type: "website",
