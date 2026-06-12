@@ -5,7 +5,7 @@ import { createPageMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Daniil Alexeev - статьи о продуктах, исследованиях и росте",
+  title: "Daniil Alexeev | Исследую и учусь строить хорошие продукты",
   description:
     "Блог Daniil Alexeev о продукт менеджменте, пользовательском поведении, гипотезах, исследованиях и создании полезных цифровых продуктов.",
   pathname: "/",
