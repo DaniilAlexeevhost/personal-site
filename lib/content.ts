@@ -3,6 +3,8 @@ import path from "node:path";
 import AIProducts from "@/content/articles/ai-products.mdx";
 import GrowthHypothesis from "@/content/articles/growth-hypothesis.mdx";
 import InspiredMartyCagan from "@/content/articles/inspired-marty-cagan.mdx";
+import OneUserMoreImportant from "@/content/articles/pochemu-odin-polzovatel-vazhnee-desyati-ekspertov.mdx";
+import SprintBook from "@/content/articles/pochemu-mne-ponravilas-kniga-sprint.mdx";
 import ProductRetention from "@/content/articles/product-retention.mdx";
 import { cases } from "@/data/cases";
 import {
@@ -34,6 +36,14 @@ const articleModules = [
   {
     file: "inspired-marty-cagan.mdx",
     Component: InspiredMartyCagan,
+  },
+  {
+    file: "pochemu-mne-ponravilas-kniga-sprint.mdx",
+    Component: SprintBook,
+  },
+  {
+    file: "pochemu-odin-polzovatel-vazhnee-desyati-ekspertov.mdx",
+    Component: OneUserMoreImportant,
   },
 ] satisfies Array<{
   file: string;
